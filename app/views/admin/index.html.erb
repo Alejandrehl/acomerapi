@@ -1,0 +1,170 @@
+<div class="row mt-5 mr-5 ml-5">
+    <div class="col-md-12 col-lg-12 col-xl-12">
+        <h1 class="text-center"><b>Inicio</b></h1>
+    </div>
+    <%if @tables.count >= 1%>
+    <div class="col-md-6 col-lg-6 col-xl-4 mb-5">
+        <div class="card card-tile card-xs bg-secondary tarjeta-3b text-center">
+            <div class="card-body p-4">
+                <div class="tile-left">
+                  <i class="batch-icon batch-icon-tag-alt-2 batch-icon-xxl"></i>
+                </div>
+                <div class="tile-right">
+                    <div class="tile-number">$<%= @total_sales %></div>
+                    <div class="tile-description">Venta total</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-4 mb-5">
+        <div class="card card-tile card-xs bg-primary tarjeta-3 text-center">
+            <div class="card-body p-4">
+                <div class="tile-left">
+                    <i class="batch-icon batch-icon-spam-alt batch-icon-xxl"></i>
+                </div>
+                <div class="tile-right">
+                    <div class="tile-number"><%= @orders.count %></div>
+                    <div class="tile-description">Ordenes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-4 mb-5">
+        <div class="card card-tile card-xs bg-secondary tarjeta-3b text-center">
+            <div class="card-body p-4">
+                <div class="tile-left">
+                    <i class="batch-icon batch-icon-heart-full batch-icon-xxl"></i>
+                </div>
+                <div class="tile-right">
+                    <div class="tile-number"><%= @reviews.count %></div>
+                    <div class="tile-description">Opiniones</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% end %>
+</div>
+
+<% if current_user.has_role? :admin%>
+<div class="container mt-5 mb-5 text-center">
+  <h2>Instrucciones<h2>
+<div class="timeline">
+    <h2>
+    </h2>
+    <% if current_user.branch_number != 1%>
+    <ul class="timeline-items">
+      <li class="is-hidden timeline-item">
+        <h3>
+          Paso 1 <% unless @restaurants.blank? %><i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i> <% end %>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crear un restaurant', new_restaurant_path, class: "btn acomer_yellow" %>
+        </p>
+      </li>
+      <li class="is-hidden timeline-item inverted">
+        <h3>
+          Paso 2  <% unless @branches.blank? %><i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i><% end %>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crear sucursal', new_branch_path, class: "btn acomer_yellow" %>
+        </p>
+        <hr>
+      </li>
+      <li class="is-hidden timeline-item">
+        <h3>
+          Paso 3  <% unless @products.blank? %><i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i><% end %>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crea productos', admin_products_path, class: "btn acomer_yellow" %>
+        </p>
+      </li>
+      <li class="is-hidden timeline-item inverted">
+        <h3>
+          Paso 4  <% unless @categories.blank? %><i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i><% end %>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crea categoría de productos', new_category_path, class: "btn acomer_yellow" %>
+        </p>
+        <hr>
+      </li>
+      <li class="is-hidden timeline-item">
+        <h3>
+          Paso 5  <% unless @menus.blank? %><i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i><% end %>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crea tu carta', new_menu_path, class: "btn acomer_yellow" %>
+        </p>
+      </li>
+      <li class="is-hidden timeline-item inverted">
+        <h3>
+          Paso 6  <% unless @tables.blank? %><i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i><% end %>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Registra tus mesas', new_table_path, class: "btn acomer_yellow" %>
+        </p>
+        <hr>
+      </li>
+    </ul>
+    <% else %>
+        <ul class="timeline-items">
+      <li class="is-hidden timeline-item">
+        <h3>
+          Paso 1 <i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crear un restaurant/sucursal', singular_branch_index_path, class: "btn acomer_yellow" %>
+        </p>
+      </li>
+      <li class="is-hidden timeline-item">
+        <h3>
+          Paso 2 <i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crea productos', admin_products_path, class: "btn acomer_yellow" %>
+        </p>
+      </li>
+      <li class="is-hidden timeline-item inverted">
+        <h3>
+          Paso 3 <i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crea categoría de productos', new_category_path, class: "btn acomer_yellow" %>
+        </p>
+        <hr>
+      </li>
+      <li class="is-hidden timeline-item">
+        <h3>
+          Paso 4 <i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Crea tu carta', new_menu_path, class: "btn acomer_yellow" %>
+        </p>
+      </li>
+      <li class="is-hidden timeline-item inverted">
+        <h3>
+          Paso 5 <i style="font-family: 'FontAwesome' !important;" class="fas fa-check"></i>
+        </h3>
+        <hr>
+        <p>
+          <%= link_to 'Registra tus mesas', new_table_path, class: "btn acomer_yellow" %>
+        </p>
+        <hr>
+      </li>
+    </ul>
+    <% end %>
+  </div>
+  <% elsif current_user.has_role? :waiter %>
+  
+    <p class='text-center'>Instructivo de mesero va aqui</p>
+  <% end %>
+</div>

@@ -1,0 +1,90 @@
+<div class="tarjeta-datos">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 datos-4 ">
+      <p id="notice"><%= notice %></p>
+
+      <p class="logo-restaurant">
+        <strong>Logo:</strong>
+        <%if @restaurant.image.present?%> 
+          <%= image_tag(@restaurant.image) %>
+          <%else%>
+          <img src="/img/miss.png">
+        <% end %>
+      </p>  
+
+      <p>
+        <strong>Name:</strong>
+        <%= @restaurant.name %>
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        <%= @restaurant.description %>
+      </p>
+
+      <p>
+        <strong>Business name:</strong>
+        <%= @restaurant.business_name %>
+      </p>
+
+      <p>
+        <strong>Giro:</strong>
+        <%= @restaurant.giro %>
+      </p>
+
+      <p>
+        <strong>Telephone:</strong>
+        <%= @restaurant.telephone %>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @restaurant.email %>
+      </p>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 datos-4">
+      <p>
+        <strong>Instagram:</strong>
+        <%= @restaurant.instagram %>
+      </p>
+
+      <p>
+        <strong>Facebook:</strong>
+        <%= @restaurant.facebook %>
+      </p>
+
+      <p>
+        <strong>Twitter:</strong>
+        <%= @restaurant.twitter %>
+      </p>
+
+      <p>
+        <strong>Pinterest:</strong>
+        <%= @restaurant.pinterest %>
+      </p>
+
+      <p>
+        <strong>Tripadvisor:</strong>
+        <%= @restaurant.tripadvisor %>
+      </p>
+
+      <p>
+        <strong>Administrador:</strong>
+        <%= @restaurant.user.name %>
+      </p>
+
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 datos-4 item-restaurant">
+      <%= link_to 'Editar', edit_restaurant_path(@restaurant), class: "btn btn-sm acomer-btn-primary"%>
+      <% if @orders.blank? %>
+        <% if @restaurant.branches.blank? %>
+          <%= link_to 'Eliminar', @restaurant, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+        <% else %>
+          <%= link_to 'Eliminar', @restaurant, method: :delete, data: { confirm: '¿Estás seguro?. Esta acción eliminará todas las sucursales asociadas.' }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+        <% end %>
+      <% end %>
+      <%= link_to 'Volver a Restaurantes', admin_restaurants_path, class: "btn btn-sm acomer-btn-primary"%>
+      </div>
+    </div>
+  </div>
+</div>

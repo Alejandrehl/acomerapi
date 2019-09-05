@@ -1,0 +1,47 @@
+<h1 class = "text-center">Resumen de su Reserva</h1>
+
+<% if current_user.has_role? :admin %>
+    <div>
+        <div class="tarjeta-datos">
+            <div class="col-12 col-md-12 col-lg-4 datos-4">
+                <p  class="qr-sucursal">
+                    <%= image_tag @qr %>
+                </p>
+            </div>
+        <div class="col-12 col-md-12 col-lg-4 datos-4">
+        <div>
+            <label> Su Reserva para <%= @reserve.number_people %> Personas</label>
+        </div>
+        <div>
+            <label> Codigo de Reserva</label> <br>
+            <%= @reserve.id %>
+        </div>
+        <div>
+            <label> Fecha de Reserva</label> <br>
+            <%= readable_time(@reserve.reservation_day) %>
+        </div>
+        <div>
+            <label> Hora de Reserva</label> <br>
+            <%= readable_hour(@reserve.reservation_hour) %>
+        </div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-4 datos-4">
+            <div>
+                <label> Mi Pedido </label>
+            </div>
+            
+            <% @reserve.order.products.each do |prod| %>
+                <%= prod.name %>
+               
+            <% end %>
+            <div>
+                <label>Total</label> <br>
+                <%= @reserve.order.total %>
+            </div>
+            </div>
+        </div>
+        <%= link_to 'Volver a Reservas',reserve_path, class: "btn acomer-primary"%>
+    </div>
+<% else %>
+    <h1><label>Usted no deberia estar aqui!  <%= link_to 'Volver', root_path %></h1></label>
+<% end %>

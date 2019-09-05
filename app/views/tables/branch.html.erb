@@ -1,0 +1,45 @@
+<div class="container mt-5 mb-5 text-center  mesas-item">
+	<% if current_user.has_role? :branch_leader %>
+		<%= link_to 'Nueva Mesa', new_table_path, class: "btn acomer-primary" %>
+	<% end %>
+    <h1>Mesas de <%= @branch.name %></h1>
+		<% if current_user.has_role? :admin %>
+    	<%= link_to "Volver", admin_tables_path, class: "btn acomer-btn-primary-outline" %>
+		<% end %>
+    <div class=" mt-5 mb-5 category-page tables-branch">
+        <% @tables.each do |table| %>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5 card-mesas">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= link_to 'Número de mesa: ' + table.number.to_s, table_path(table) %>
+                        </h5>
+                        <div class="price-block mt-5 mb-5">
+                            <div>
+                                <strong>
+                                    <%= table.description %>
+                                </strong>
+                                <label>
+                                    Estado de la mesa: <strong><%= table.state %></strong>
+                                </label>
+                                <label>
+                                    Asignada: <strong>
+                                    <% if table.assign == true %>
+                                        <% @tablewaiter = WaiterTable.find_by(table_id: table.id)%>
+                                        <% @waiter = User.find(@tablewaiter.user_id)%>
+                                        <%= @waiter.name%>
+                                    <% else %>
+                                        No está asignada
+                                    <% end %>
+                                    </strong>
+                                </label>
+                            </div>
+                        </div>
+                        <%= link_to 'Ver Mesa', table_path(table), class: "btn acomer-primary" %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
+</div>

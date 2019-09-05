@@ -1,0 +1,116 @@
+<%= form_with(model: product, local: true) do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if current_user %>
+  
+  
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+
+    <!---<div class="field">
+      <%= form.label :Tiempo_de_espera %>
+      <%= form.time_select :waiting_time %>
+    </div>--->
+
+    <div class="field">
+      <%= form.label :price %>
+      <%= form.number_field :price %>
+    </div>
+
+    <div class="field">
+      <%= form.label :cost %>
+      <%= form.number_field :cost %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ingredient %>
+      <%= form.text_field :ingredient %>
+    </div>
+
+    <div class="field">
+      <%= form.label :calories %>
+      <%= form.number_field :calories %>
+    </div>
+
+    <div class="field">
+      <%= form.label :proteins %>
+      <%= form.number_field :proteins %>
+    </div>
+
+    <div class="field">
+      <%= form.label :carbohydrates %>
+      <%= form.number_field :carbohydrates %>
+    </div>
+
+    <div class="field">
+      <%= form.label :saturated_fats %>
+      <%= form.number_field :saturated_fats %>
+    </div>
+
+    <div class="field">
+      <%= form.label :unsaturated_fats %>
+      <%= form.number_field :unsaturated_fats %>
+    </div>
+
+    <div class="field">
+      <%= form.check_box :vegan %>
+      <%= form.label :vegan %>
+    </div>
+
+    <div class="field">
+      <%= form.check_box :vegetarian %>
+      <%= form.label :vegetarian %>
+    </div>
+
+    <div class="field">
+      <%= form.check_box :specialty %>
+      <%= form.label :specialty %>
+    </div>
+
+    <div class="field">
+      <%= form.check_box :activated %>
+      <%= form.label :activated %>
+    </div>
+
+    <div class="field">
+      <%= form.label :value_offer %>
+      <%= form.number_field :value_offer %>
+    </div>
+
+    <div class="field">
+     <% @categories = Category.where(user_id: current_user[:id]) %>
+     <%= form.collection_check_boxes :category_ids, @categories, :id, :name %>
+    </div>
+
+    <div class="field">
+      <%= form.text_field :user_id , type: "hidden", value: current_user[:id]%>
+    </div>
+
+    <div class="field">
+      <%= form.label :images, "Ingrese imagenes del Plato" %><br />
+      <%= form.file_field :images, multiple: true, onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes }%>
+    </div>
+  <% else %>
+    <h3>Debes logearte para estar acá</h3>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit "Guardar", class: "acomer-btn-primary" %>
+  </div>
+<% end %>

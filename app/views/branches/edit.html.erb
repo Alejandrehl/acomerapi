@@ -1,0 +1,188 @@
+<%= form_with(model: @branch, local: true) do |form| %>
+  <% if @branch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@branch.errors.count, "error") %> prohibited this branch from being saved:</h2>
+      <ul>
+        <% branch.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="col-lg-6 formulario new-branch">
+    <div class="form-group">
+      <%= form.label :name, "Nombre" %>
+      <%= form.text_field :name, class: "form-control", placeholder: "Ej: Jalisco Plaza Norte", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :telephone, "Teléfono" %>
+      <%= form.text_field :telephone, class: "form-control", placeholder: "Ej: 229384329", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :street, "Dirección" %>
+      <input id="pac-input" class="controls" type="text" name="branch[street]" placeholder="Escribe tu dirección ">
+      <div id="map">
+      </div>
+      <input type="text" size="20" maxlength="50" name="branch[lat]" id="displayLat" required= true hidden=true>
+      <input type="text" size="20" maxlength="50" name="branch[leng]" id="displayLong" required= true hidden=true>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :email_manager, "Correo electrónico de administrador" %>
+      <%= form.text_field :email_manager, class: "form-control", placeholder: "Ej: administracion@jalisco.com", required: true, type: "email" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :telephone_manager, "Teléfono de administrador" %>
+      <%= form.text_field :telephone_manager, class: "form-control", placeholder: "Ej: 982435564", required: true %>
+    </div>
+
+    
+  </div>
+  <div class ="col-lg-6 formulario new-branch">
+  <div class="form-group">
+      <%= form.label :information, "Información" %>
+      <%= form.text_area :information, class: "form-control", placeholder: "Escriba una breve descripcion de la sucursal", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :branch_category, "Selecciona una categoria de sucursal" %>
+      <br>
+      <%= form.select :branch_category, [['Restobar','Restobar'], ['Bar','Bar'], ['Restaurante','Restaurante'], ['Karaoke Bar','Karaoke Bar'], ['Pub','Pub'], ['Sushi Bar','Sushi Bar'], ['Comida China','Comida China'], ['Comida Arabe','Comida Arabe'], ['Comida Peruana','Comida Peruana'], ['Pasteleria','Pasteleria'], ['Cafeteria','Cafeteria'] ,['Buffet','Buffet'] ,['Otro','Otro'] ], class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+      <h3 style="width:100%; float:left;"><%= form.label :attentiontype, "Selecciona el tipo de atencion de tu sucursal"%></h3>
+      <br>
+
+      <div class="form-group">
+        <%= form.check_box :step %>
+        <%= form.label :step, "Al Paso" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.check_box :by_tables %>
+        <%= form.label :by_tables, "Por Mesas" %>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <%= form.label :restaurant_id, 'Restaurant o cadena al que pertenece' %>
+      <br>    
+      <%= form.select(:restaurant_id, Restaurant.where("user_id = #{current_user[:id]}").collect {|r| [r.name, r.id] }, {}, {class: "form-control"}) %>
+    </div>
+    <div class="form-group">
+      <%= form.label :images, "Ingrese imágenes de la sucursal"%><br /><br />
+      <%= form.file_field :images, multiple: true, class: "form-control", onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes }%>
+    </div>
+   <!--- <div class="form-group">
+      <%= form.label :instagram_id, "Instagram ID" %>
+      <%= form.text_field :instagram_id, class: "form-control" %>
+    </div>--->
+
+  </div>
+
+  <div class="col-lg-12 formulario new-branch">
+<h2>Horario <small>(Opcional)</small></h2>
+      <div class="col-lg-2 horario-tabla">
+        <div class="horario-tabla-dias">
+          <label>Lunes</label>
+          <label>Martes</label>
+          <label>Miércoles</label>
+          <label>Jueves</label>
+          <label>Viernes</label>
+          <label>Sábado</label>
+          <label>Domingo</label>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 horario-tabla">
+    <h4>Hora de apertura</h4>
+    <div class="form-group">
+      <%= form.time_field :hour_op_mon, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_lun , type: "hidden", value: "Lunes"%>
+    </div>
+
+     <div class="form-group">
+      <%= form.time_field :hour_op_tue, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_mar , type: "hidden", value: "Martes"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_op_wed, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_mie , type: "hidden", value: "Miercoles"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_op_thu, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_jue , type: "hidden", value: "Jueves"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_op_fri, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_vie , type: "hidden", value: "Viernes"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_op_sat, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_sab , type: "hidden", value: "Sabado"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_op_sun, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_dom , type: "hidden", value: "Domingo"%>
+    </div>
+
+      </div>
+    <div class="col-lg-3 horario-tabla">
+    <h4>Hora de cierre</h4>
+    <div class="form-group">
+      <%= form.time_field :hour_cl_mon, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_lun , type: "hidden", value: "Lunes"%>
+    </div>
+
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_tue, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_mar , type: "hidden", value: "Martes"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_wed, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_mie , type: "hidden", value: "Miercoles"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_thu, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_jue , type: "hidden", value: "Jueves"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_fri, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_vie , type: "hidden", value: "Viernes"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_sat, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_sab , type: "hidden", value: "Sabado"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_sun, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_dom , type: "hidden", value: "Domingo"%>
+    </div>
+    </div>
+    
+    <div class="actions">
+        <% if current_user.branch_number == 1 %>
+          <%= link_to 'Volver al Menu', admin_index_path, class: "acomer-btn-primary"%>
+        <% else %>
+          <%= link_to 'Volver a Sucursales', admin_branches_path, class: "acomer-btn-primary"%>
+        <% end %>
+        <%= form.submit "Guardar", class: "acomer-btn-primary" %>
+      </div>
+  </div>
+<% end %>

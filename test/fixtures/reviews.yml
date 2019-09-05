@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stars: 1.5
+  date: 2019-04-22 17:51:59
+  commentary: MyString
+  user: one
+  product: one
+
+two:
+  stars: 1.5
+  date: 2019-04-22 17:51:59
+  commentary: MyString
+  user: two
+  product: two

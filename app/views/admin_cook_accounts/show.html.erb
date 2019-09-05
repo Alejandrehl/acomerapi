@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<div class="tarjeta-datos">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+
+      <p class="logo-restaurant">
+        <% if @cook.profile.attached? %>
+          <%= image_tag(@cook.profile) %>
+        <% else %>
+          <img src="/img/not-avatar.jpg" width="auto" height="auto" alt="Acomer">
+        <% end %>
+      </p>
+      <% @cookaccount = AdminCookAccount.find_by(id_cook: @cook.id) %>
+      <p>
+        <strong>Nombre:</strong>
+        <%= @cook.name %>
+      </p>
+
+      <p>
+        <strong>Rut:</strong>
+        <%= @cook.rut %>
+      </p>
+
+      <p>
+        <strong>Correo:</strong>
+        <%= @cook.email %>
+      </p>
+    </div>
+
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+        <%= link_to 'Eliminar Cocinero', {controller:"admin_cook_accounts", action: "delete", id: @cook.id}, data: { confirm: "¿Seguro desea eliminar a #{@cook.name} de su equipo de meseros?" }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+    </div>
+  </div>
+</div>

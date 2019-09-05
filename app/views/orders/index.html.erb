@@ -1,0 +1,42 @@
+<div class="container mt-5 mb-5">
+  <% if @orders.blank? %>
+    <div> 
+      <div class="card alert alert-warning text-center">
+        <h4 class="tex-center">
+          ¡Atento a tu primer pedido!
+        </h4>
+      </div>
+    </div>
+  <% else %>
+    <div> 
+      <div class="mb-5 text-center">
+        <h2>Ordenes</h2>
+        <br>
+          <% if !@branches.blank? %> 
+              <div class="row mb-5 category-page">
+                <% @branches.each do |b| %>
+                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                  <div class="card text-center">
+                      <% if b.image_paths.present?%>
+                      <a href="/orders/branch/<%= b.id %>">
+                        <%= image_tag(b.image_paths.first.url, class: "card-img-top") %>
+                      </a>
+                      <% else %>
+                        <%= link_to "Agregar Imagen", branch_path(b), class: "btn acomer-primary btn-sm btn-block" %>
+                      <% end %>
+                    <div class="card-body">
+                      <h5 class="card-title">
+                      <a href="/orders/branch/<%= b.id %>">
+                          <%= b.name %>
+                      </a>
+                      </h5>
+                      <%= link_to 'Ordenes de la sucursal', {controller: "orders", action: "branch", id: b.id },  class: "btn acomer-primary" %>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            <% end %>  
+    </div>
+  <% end %>
+</div>

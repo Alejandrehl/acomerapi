@@ -1,0 +1,22 @@
+<%= form_with(model: post_category, local: true) do |form| %>
+  <% if post_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post_category.errors.count, "error") %> prohibited this post_category from being saved:</h2>
+
+      <ul>
+      <% post_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Aqui va el tipo al que pertenece el Post. Ej: Reseña" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

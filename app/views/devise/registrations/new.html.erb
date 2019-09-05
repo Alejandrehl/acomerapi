@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="right-column sisu">
+      <div class="row mx-0">
+        <div class="col-md-5 signin-right-column px-5 bg-dark" style="background-image: url('/img/burger-auth.jpg')">
+          <a class="signin-logo d-sm-block d-md-none" href="#">
+            <img src="/img/logo.png" width="145" height="32.3" alt="Acomer">
+          </a>
+        </div>
+        <div class="col-md-7 signin-left-column bg-white px-5">
+          <a class="signin-logo d-sm-none d-md-block" href="/">
+            <img src="/img/logo.png" height="auto" alt="Acomer">
+          </a>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+          
+            <div class="form-group">
+              <%= f.label :email, "Correo electrónico" %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password, "Contraseña" %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> caracteres mínimo.)</em>
+              <% end %><br />
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password_confirmation, "Confirmar contraseña" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :name, "Nombre" %><br />
+              <%= f.text_field :name, autofocus: true, class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :last_name, "Apellido" %><br />
+              <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :phone, "Teléfono" %><br />
+              <%= f.text_field :phone, autofocus: true, class: "form-control", required: true %>
+            </div>
+
+            <!---<div class="form-group">
+              <%= f.label :rut, "Rut" %><br />
+              <%= f.text_field :rut, autofocus: true, class: "form-control", required: true %>
+            </div>--->
+
+            <div class="form-group">
+              <%= f.label :branch_number, "Cuantos Locales Posee?" %><br />
+              <%= f.number_field :branch_number,autofocus: true, class: "form-control", required: true, min: 1, max: 99 %>
+            </div>
+            <!--
+              <div class="form-group">
+                <%= f.label :birthdate, "Fecha de nacimiento" %><br />
+                <%= f.date_field :birthdate, autofocus: true, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :gender, "Género" %><br />
+                <%= f.text_field :gender, autofocus: true, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :profile, "Ingrese una imagen" %><br />
+                <%= f.file_field :profile, class: "form-control" %>
+              </div>
+            -->
+
+
+            <div class="action">
+              <%= f.submit "Registrar", class: "acomer-btn-primary" %>
+            </div>
+          <% end %>
+            <p class="text-left">
+              <%= render "devise/shared/links" %>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

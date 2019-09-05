@@ -1,0 +1,2 @@
+module SingularBranchHelper
+end

@@ -1,0 +1,600 @@
+// Place all the styles related to the roles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+* {
+  font-family: "Batch Icons", "fontawesome", 'Montserrat', sans-serif !important;
+}
+
+.landing {
+  font-family: 'Montserrat', sans-serif;
+  .navbar-desktop{
+    display: block;
+    border-radius: 0px 0px 5px 5px;
+    background: #242424;
+    position: fixed;
+    padding: 5px 2%;
+    width: 100%;
+    max-width: 1368px;
+    z-index: 1;
+    @media screen and(max-width:700px){
+      padding: 10px 15px;
+      display: none;
+    }
+    .navbar-item{
+      cursor: pointer;
+      float: left;
+      margin: 5px 0;
+      width: calc(100%/6);
+      overflow: hidden;
+      text-align: center;
+      a{
+        color: #fff;
+        float: left;
+        width: 100%;
+        text-align: center;
+        padding-left: 5px;
+        padding-top: 5px;
+        outline: none;
+        height: 30px;
+        transition: 200ms;
+        &:hover{
+          color: #FBE700;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .navbar-mobile{
+    display: none;
+    @media screen and(max-width:700px){
+      background: rgba(45, 45, 45, 0.9);
+      border-radius: 0px 0px 5px 5px;
+      position: fixed;
+      width: 100%;
+      max-width: 1368px;
+      z-index: 1;
+      padding: 10px 15px;
+      display: block;
+    }
+    .menu-boton-toggle{
+      text-align: right;
+      float: right;
+      color: #ffffff;
+      background: transparent;
+      border: none;
+      outline: none;
+      i{
+        font-size: 50px;
+        font-style: normal;
+      }
+    }
+    .navbar-item{
+      cursor: pointer;
+      margin: 10px 0;
+      a{
+        color: #E6E7E9;
+        outline: none;
+        transition: 200ms;
+        &:hover{
+          color: #FBE700;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .banner {
+      float: left;
+      position: relative;
+      height: auto;
+      overflow: hidden;
+      @media screen and(max-width: 769px) {
+        height: auto;
+        float: none;
+      }
+      .bg {
+          height: 900px;
+          width: 100%;
+          position: absolute;
+          object-fit: cover;
+          left: 0;
+          top: 0;
+          z-index: -1;
+          filter: brightness(0.5);
+          @media screen and(max-width: 769px) {
+              height: 1100px;
+          }
+          @media screen and(max-width:426px) {
+            height: 1094px;
+          }
+      }
+      .banner-item {
+        width: 41%;
+        z-index: 1;
+        float: left;
+        margin-top: 80px;
+        margin-bottom: 50px;
+        padding-left: 70px;
+        @media screen and(max-width: 769px) {
+          width: 100%;
+          margin-top: 35px;
+          padding: 20px;
+          margin-bottom: 35px;
+        }
+        @media screen and(max-width:426px) {
+          width: 100%;
+          margin-top: 70px;
+          margin-bottom: 0px;
+        }
+        p {
+          margin: 0;
+          font-size: 20px;
+          margin-left: 26px;
+          float: left;
+          width: 100%;
+          color: #FBE700;
+          font-style: italic;
+          font-weight: 500;
+        }
+        h1 {
+          width: 100%;
+          color: #FBE700 !important;
+          font-weight: 500;
+          margin: 50px 0;
+          margin-left: 26px;
+          float: left;
+          font-size: 50px;
+          line-height: 1;
+          @media screen and(max-width: 769px) {
+            width: 85%;
+          }
+          @media screen and(max-width:426px) {
+            font-size: 34px
+          }
+        }
+        img {
+          width: 440px;
+          float: left;
+          @media screen and(max-width:426px){
+            width: 100%;
+          }
+        }
+        .banner-botones {
+          margin-left: 15px;
+          .acomer-btn-primary,
+          .acomer-btn-primary-outline{
+            @media screen and(max-width:426px){
+              width: 40%;
+            }
+          }
+        }
+        .form-banner {
+          background: #ffffff;
+          width: 100%;
+          height: auto;
+          float: left;
+          padding: 20px;
+          border-radius: 10px;
+          margin-left: 20%;
+          @media screen and(max-width: 769px) {
+            margin: 0 auto;
+          }
+          label {
+            width: 100%;
+            float: left;
+          }
+          input,
+          textarea {
+            width: 95%;
+            float: left;
+            margin: 0px 10px 20px;
+            border: solid 1px #ccc;
+            border-radius: 5px;
+            padding: 5px 10px;
+          }
+          textarea {
+            max-width: 95%;
+            min-width: 85%;
+            max-height: 90px;
+          }
+        }
+      }
+  }
+  .main-content {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    .tab-01,.tab-02 {
+      float: left;
+      width: 100%;
+      margin: 50px 0;
+      padding: 0px 90px;
+      @media screen and(max-width:770px){
+        padding: 0px 25px;
+      }
+      .tab {
+        float: left;
+        width: 10%;
+        @media screen and(max-width: 426px) {
+          width: 10%;
+          height: 260px;
+          display: block;
+          margin: 0 auto;
+          margin-top: 50px;
+          float: left;
+        }
+        @media screen and(max-width:370px){
+          width: 100%;
+          height: auto;
+          margin-top: 0;
+        }
+      }
+        /* Style the buttons inside the tab */
+        .tab button {
+          display: block;
+          width: 90px;
+          height: 90px;
+          margin: 55px 20px;
+          background: transparent;
+          padding: 10px;
+          border: solid 2px #FBE700;
+          border-radius: 150px;
+          outline: none;
+          cursor: pointer;
+          transition: 0.3s;
+          @media screen and(max-width: 769px) {
+            width: 50px;
+            height: 50px;
+            float: left;
+            margin: 50% 8%;
+          }
+          @media screen and(max-width:370px){
+            margin: 0 2%;
+          }
+          svg{
+            height: auto;
+            width: 70%;
+            @media screen and(max-width:426px){
+              width: 100%;
+            }
+            path {
+              width: 70%;
+              fill: #FBE700;
+              color: #FBE700;
+            }
+          }
+        }
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        /* Create an active/current "tab button" class */
+        .tab button.active {
+            background-color: #FBE700;
+            path{
+              fill: #fff;
+              color: #fff;
+            }
+            
+        }
+        /* Style the tab content */
+        .tabcontent,.tabcontent02 {
+          float: left;
+          padding: 0px 12px;
+          width: 87%;
+          border-left: none;
+          margin-top: 60px;
+          @media screen and(max-width: 1025px) {
+            width: 80%;
+            margin-left: 50px;
+          }
+          @media screen and(max-width:769px){
+            width: 77%;
+            float: left;
+            margin-left: 0;
+          }
+          @media screen and(max-width:426px) {
+            width: 80%;
+            margin-left: 0;
+            float: left;
+            margin-top: 21px;
+          }
+          img {
+            width: 30% !important;
+            float: left;
+            margin-left: 80px;
+            @media screen and(max-width: 1025px) {
+              width: 40% !important;
+              display: block;
+              margin: 0 auto;
+              float: none;
+            }
+            @media screen and(max-width:426px) {
+              width: 80% !important;
+            }
+          }
+          .tab-text {
+            float: left;
+            width: 40%;
+            margin-top: 40px;
+            margin-left: 100px;
+            @media screen and(max-width: 1025px) {
+              width: 90%;
+              display: block;
+              margin: 0 auto;
+              float: none;
+              margin-top: 40px;
+            }
+            h4 {
+              margin: 30px 0;
+              font-size: 20px;
+              @media screen and(max-width:769px){
+                font-size: initial;
+              }
+            }
+            ul {
+              margin-top: 50px;
+              @media screen and(max-width:769px){
+                float: left;
+                padding: 0;
+              }
+              li {
+                list-style-type: none;
+                float: left;
+                width: 100%;
+                margin: 10px 0;
+                font-size: 18px;
+                font-weight: 500;
+                img {
+                  width: 5% !important;
+                  float: left;
+                  margin: 0;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .call-to-action {
+        height: 100px;
+        width: 100%;
+        float: left;
+        overflow: hidden;
+        img {
+          position: absolute;
+          height: 100px;
+          object-fit: cover;
+          object-position: 100% 78%;
+          width: 100%;
+          left: 0;
+          z-index: -1;
+          filter: brightness(0.5);
+        }
+        h2 {
+          width: 70%;
+          color: #ffffff;
+          float: left;
+          text-align: center;
+          margin-top: 30px;
+          @media screen and(max-width: 426px) {
+            width: 65%;
+            font-size: 23px;
+            margin-top: 25px;
+          }
+          @media screen and(max-width:370px) {
+            width: 58%;
+            font-size: 17px;
+            margin-top: 31px;
+          }
+        }
+        a {
+          width: initial;
+          margin-top: 30px !important;
+          @media screen and(max-width: 426px) {
+            margin-top: 35px;
+          }
+        }
+      }
+  }
+  .cotizador {
+      float: left;
+      width: 100%;
+      height: auto;
+      background-image: url(/img/bg-cotizador.jpg);
+      background-size: cover;
+      
+      .form-products {
+        height: auto !important;
+      }
+      .form-cotizador {
+          background: #ffffff;
+          overflow: hidden;
+          display: block;
+          width: 50%;
+          height: auto;
+          margin: 0 auto;
+          margin-top: 50px;
+          margin-bottom: 50px;
+          padding: 20px;
+          border-radius: 10px;
+          @media screen and(max-width: 769px) {
+              width: 90%;
+          }
+          h2{
+            margin: 20px 0;
+          }
+          .progress {
+              margin-top: -20px;
+              margin-left: -20px;
+              width: 120%;
+              border-radius: 10px 10px 0px 0px !important;
+              height: 10px;
+              .progress-bar {
+                  background: #FBE700 !important;
+                  border: none;
+              }
+          }
+          label {
+              width: 100%;
+              float: left;
+              
+          }
+          input[type="text"],
+          input[type="tel"],
+          input[type="number"] {
+              width: 90%;
+              float: left;
+              margin: 0px 10px 20px;
+              border: solid 1px #ccc;
+              border-radius: 5px;
+              padding: 5px 10px;
+          }
+          .numero-de-mesas {
+              display: none;
+          }
+          .item-cotizador {
+              width: 100%;
+              float: left;
+              margin: 5px 0;
+              .icon-item-cotizador {
+                  border: 2px solid #FBE700;
+                  border-radius: 50px;
+                  float: left;
+                  padding: 10px;
+                  width: 50px;
+                  height: 50px;
+                  svg{
+                    width: 100%;
+                    height: auto;
+                    float: left;
+                    path{
+                      width: 70%;
+                      height: auto;
+                      fill: #FBE700;
+                    }
+                  }
+              }
+              p {
+                  float: left;
+                  width: 70%;
+                  margin-top: 2px;
+                  font-size: 14px;
+                  @media screen and(max-width:1024px){
+                  }
+                  @media screen and(max-width: 426px) {
+                      width: 100%;
+                  }
+              }
+              .button-item-cotizador {
+                  float: left;
+                  width: 87%;
+                  margin-left: 3%;
+                  @media screen and(max-width: 426px) {
+                      width: 40%;
+                  }
+                  p {
+                      width: 75%;
+                      float: left;
+                  }
+              }
+              .contador-cotizacion {
+                  width: 25%;
+                  float: right;
+                  @media screen and(max-width: 426px) {
+                      width: 40%;
+                  }
+                  input {
+                      width: 40%;
+                      margin: 0px 48px 20px;
+                  }
+                  label{
+                    text-align: center;
+                  }
+              }
+              img {
+                  width: 100%;
+              }
+          }
+          .total-cotizador {
+              width: 100%;
+              float: left;
+              label {
+                  float: left;
+                  width: 65%;
+                  text-align: right;
+                  @media screen and(max-width:1024px){
+                    width: 60%;
+                  }
+                  @media screen and(max-width: 426px) {
+                      width: 45%;
+                  }
+              }
+              p {
+                  float: left;
+                  width: 17%;
+                  margin-left: 20px;
+              }
+          }
+      }
+  }
+
+  .faq-landing{
+    width: 100%;
+    float: left;
+    height: auto;
+    padding: 50px 0;
+    .item-faq{
+      float: left;
+    }
+    .panel{
+      border: none !important;
+    }
+    .panel-heading{
+      padding: 0;
+      height: auto;
+      width: 100%;
+      float: left;
+      margin-bottom: 5px;
+      border: solid 1.5px #FBE700;
+      background: #ffffff;
+      transition: 200ms;
+      color: #242424;
+      transition: 200ms;
+      cursor: pointer;
+      &:hover{
+        border: solid 1.5px #000000;
+        color: #000000;
+      }
+      a{
+        float: left;
+        padding: 10px 15px;
+        width: 100%;
+        &:hover, &:focus, &:active{
+          text-decoration: none;
+        }
+      }
+    }
+    .panel-body{
+      transition: 200ms;
+      border-radius: 5px;
+      -webkit-box-shadow: 3px 3px 17px -10px rgba(0,0,0,0.75);
+      -moz-box-shadow: 3px 3px 17px -10px rgba(0,0,0,0.75);
+      box-shadow: 3px 3px 17px -10px rgba(0,0,0,0.75);
+    }
+    
+  }
+}
+
+
+.show {
+  display: block !important;
+}
+
+
+/// 
+
+
+.blocker{
+    background-color: rgba(0, 0, 0, 0.19)!important;
+}

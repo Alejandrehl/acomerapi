@@ -1,0 +1,39 @@
+// Place all the styles related to the reviews controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.thumb-img {
+    padding: 0 30px;
+    float: left;
+    width: 25%;
+    height: 85px;
+}
+
+.card-review {
+    float: left;
+    border: none;
+    width: 31%;
+    margin: 15px 1%;
+    height: 250px;
+    overflow: hidden;
+    overflow-y: scroll;
+    color: #4a4a4a;
+    padding: 10px !important;
+    .review_img {
+        width: 40%;
+        margin: 10px 2%;
+        float: left;
+        img {
+            padding: 10px;
+            width: 100%;
+            height: auto;
+        }
+    }
+    .review_text {
+        width: 100%;
+        margin: 10px 2%;
+        float: left;
+        h4 {
+            font-weight: 600!important;
+        }
+    }
+}

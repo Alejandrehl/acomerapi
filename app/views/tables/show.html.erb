@@ -1,0 +1,52 @@
+<div class="container mt-5 mb-5 text-center">
+  <h1>
+    <%= "Mesa " + @table.number.to_s %>
+  </h1>
+
+  <% if notice %>
+    <div class="alert alert-primary" role="alert">
+        <%= notice %>
+    </div>
+  <% end %>
+
+  <table class="table table-hover mt-5 mb-5 tables-admin">
+    <tr>
+      <th>Descripción</th>
+      <td><%= @table.description %></td>
+    </tr>
+    <tr>
+      <th>Estado</th>
+      <td><%= @table.state %></td>
+    </tr>
+    <tr>
+      <th>Sucursal</th>
+      <td><%= @table.branch.name %></td>
+    </tr>
+    <tr>
+      <th>Asignado</th>
+
+      <% if @table.assign == true %>
+        <% @tablewaiter = WaiterTable.find_by(table_id: @table.id)%>
+        <% @waiter = User.find(@tablewaiter.user_id)%>
+        <td><%= @waiter.name%></td>
+      <% else %>
+        <td>No está asignada</td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>Código QR</th>
+      <td><%= image_tag @qr %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>
+      <div class="button-center">
+        <%= link_to '<i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_table_path(@table), class: "acomer-btn-secundary btn-sm" %>
+        <%= link_to '<i class="batch-icon batch-icon-bin-alt-2"></i>'.html_safe, @table, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "acomer-btn-tertiary btn-sm" %>
+        <%= link_to 'Volver a Mesas', "/tables/branch/" + @table.branch.id.to_s , class: "acomer-btn-primary btn-sm" %>
+      </div>
+      </td>
+    </tr>
+  </table>
+
+</div>

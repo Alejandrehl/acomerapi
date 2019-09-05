@@ -1,0 +1,486 @@
+<div id="ordenes">
+  <div id="pedidos_branch_<%=@branch.id%>" >
+    <div class="ordenes">
+      <h2 class="text-center">Ordenes en "<%= @branch.name %>"</h2>
+      <template v-if="loading">
+        <div class="loading_screen">
+          <img src="/img/logo.png" width="185" height="auto" alt="Acomer">
+          <h4>Estamos cargando tus ordenes, espera un momento..</h4>
+          <!-- Spinner -->
+          <div class="lds-css ng-scope">
+          <div class="lds-spinner" style="width:100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          <!-- Fin Spinner -->
+        </div>
+      </template>
+      <template v-else>
+      <div class="columna">
+        <h3 class="text-center">Solicitado ({{requested.length}})</h3>
+        <div class="orders mb-5 category-page " id="pending_orders_section">
+          <div v-for="order in requested">
+            <!-- Modal -->
+            <div :id="order.id" class="modal">
+              <h4><b>Numero de Orden:</b> {{order.id}}</h4>
+              <div>
+                <label>
+                  <b>Estado:</b>
+                  Pendiente
+                </label>
+                <br>
+                <label>
+                  <b>Nombre del cliente:</b>
+                  {{order.user_name}}
+                </label>
+                <br>
+                <label>
+                  <b>Especificaciones:</b>
+                  {{order.specification}}
+                </label>
+                <br>
+                <label>
+                  <b>Metodo de pago:</b>
+                  {{order.payment_modality}}
+                </label>
+                <br>
+                <label>
+                  <b>Id de la mesa:</b>
+                  {{order.table_id}}
+                </label>
+                <br>
+              <div>
+                <h3> Productos de la orden </h3>
+                <table class="table_modal_products">
+                  <thead >
+                    <td>Nombre</td>
+                    <td>Cantidad</td>
+                    <td>Subtotal</td>
+                  </thead>
+                  <tbody>
+                    <tr v-for="product in order.products">
+                      <td>
+                        {{product.name}}
+                      </td>
+                      <td>
+                        {{product.quantity}}
+                      </td>
+                      <td>
+                        {{product.price * product.quantity}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table> 
+                <h4><b>Total:</b> ${{order.total}}</h4>
+              </div>
+              <br>
+              </div>
+            </div>
+            <!-- Fin Modal -->
+            <!-- Card -->
+            <div class="order-card text-center">
+              <div class="card" :class="{order_loading: order.loading}">
+                <div class="card-body">
+                  <h5 class="card-title requested_bg">
+                    <a :href="'#'+order.id" rel="modal:open">
+                      Pedido Nro {{order.id}}
+                    </a>
+                  </h5>
+                  <div class="price-block">
+                    <label>
+                      Hora: {{order.hour.substring(11, 16) }}
+                    </label>
+                    <label>
+                      Mesa: {{order.table_id }}
+                    </label>
+                    <label>
+                      Pagado:
+                      <select 
+                        v-model="order.pay_status" 
+                        @change="handleChanguePayState(order)"
+                        class="pay_status" 
+                        :class="[order.payed ? 'payed' : 'unpayed' ]">
+                          <option :selected="order.payed == true" value="Sí">Sí</option>
+                          <option :selected="order.payed == false" value="No">No</option>
+                      </select>
+                    </label>
+                    <div class="order_state">
+                      <label>Mover a:</label>
+                      <a @click="handleChangueStatus(order, requested, 'process')" class="btn yellow-button in_proccess_bg">
+                        En proceso
+                      </a>
+                      <a @click="handleChangueStatus(order, requested, 'ready')" class="btn yellow-button ready_bg">
+                        A retirar
+                      </a>
+                      <a @click="handleChangueStatus(order, requested, 'completed')" class="btn yellow-button closed_bg">
+                        Entregada
+                      </a>
+                    </div>
+                    <a :href="'#'+order.id" rel="modal:open" class="see-more">
+                      Ver detalle
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin card -->
+          </div>
+        </div>
+      </div>
+      <div class="columna">
+        <h3 class="text-center">En Proceso ({{in_process.length}})</h3>
+        <div class="orders mb-5 category-page ">  
+          <div v-for="order in in_process">
+            <!-- Modal -->
+            <div :id="order.id" class="modal">
+              <h4><b>Numero de Orden:</b> {{order.id}}</h4>
+              <div>
+                <label>
+                  <b>Estado:</b>
+                  Pendiente
+                </label>
+                <br>
+                <label>
+                  <b>Nombre del cliente:</b>
+                  {{order.user_name}}
+                </label>
+                <br>
+                <label>
+                  <b>Especificaciones:</b>
+                  {{order.specification}}
+                </label>
+                <br>
+                <label>
+                  <b>Metodo de pago:</b>
+                  {{order.payment_modality}}
+                </label>
+                <br>
+                <label>
+                  <b>Id de la mesa:</b>
+                  {{order.table_id}}
+                </label>
+                <br>
+              <div>
+                <h3> Productos de la orden </h3>
+                <table class="table_modal_products">
+                  <thead >
+                    <td>Nombre</td>
+                    <td>Cantidad</td>
+                    <td>Subtotal</td>
+                  </thead>
+                  <tbody>
+                    <tr v-for="product in order.products">
+                      <td>
+                        {{product.name}}
+                      </td>
+                      <td>
+                        {{product.quantity}}
+                      </td>
+                      <td>
+                        {{product.price * product.quantity}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table> 
+                <h4><b>Total:</b> ${{order.total}}</h4>
+              </div>
+              <br>
+              </div>
+            </div>
+            <!-- Fin Modal -->
+            <!-- Card -->
+            <div class="order-card text-center">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title in_proccess_bg">
+                    <a :href="'#'+order.id" rel="modal:open">
+                      Pedido Nro {{order.id}}
+                    </a>
+                  </h5>
+                  <div class="price-block">
+                    <label>
+                      Hora: {{order.hour.substring(11, 16) }}
+                    </label>
+                    <label>
+                      Mesa: {{order.table_id }}
+                    </label>
+                    <label>
+                      Pagado:
+                      <select 
+                        v-model="order.pay_status" 
+                        @change="handleChanguePayState(order)"
+                        class="pay_status" 
+                        :class="[order.payed ? 'payed' : 'unpayed' ]">
+                          <option :selected="order.payed == true" value="Sí">Sí</option>
+                          <option :selected="order.payed == false" value="No">No</option>
+                      </select>
+                    </label>
+                    <div class="order_state">
+                      <label>Mover a:</label>
+                      <a @click="handleChangueStatus(order, in_process, 'requested')" class="btn yellow-button requested_bg">
+                        Solicitada
+                      </a>
+                      <a @click="handleChangueStatus(order, in_process, 'ready')" class="btn yellow-button ready_bg">
+                        A retirar
+                      </a>
+                      <a @click="handleChangueStatus(order, in_process, 'completed')" class="btn yellow-button closed_bg">
+                        Entregada
+                      </a>
+                    </div>
+                    
+                    <a :href="'#'+order.id" rel="modal:open" class="see-more">
+                      Ver detalle
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin card -->
+          </div>
+        </div>
+      </div>
+      <div class="columna">
+        <h3 class="text-center">Listas para retirar ({{ready.length}})</h3>
+        <div class="orders mb-5 category-page "> 
+        
+          <div v-for="order in ready">
+            <!-- Modal -->
+            <div :id="order.id" class="modal">
+              <h4><b>Numero de Orden:</b> {{order.id}}</h4>
+              <div>
+                <label>
+                  <b>Estado:</b>
+                  Pendiente
+                </label>
+                <br>
+                <label>
+                  <b>Nombre del cliente:</b>
+                  {{order.user_name}}
+                </label>
+                <br>
+                <label>
+                  <b>Especificaciones:</b>
+                  {{order.specification}}
+                </label>
+                <br>
+                <label>
+                  <b>Metodo de pago:</b>
+                  {{order.payment_modality}}
+                </label>
+                <br>
+                <label>
+                  <b>Id de la mesa:</b>
+                  {{order.table_id}}
+                </label>
+                <br>
+              <div>
+                <h3> Productos de la orden </h3>
+                <table class="table_modal_products">
+                  <thead >
+                    <td>Nombre</td>
+                    <td>Cantidad</td>
+                    <td>Subtotal</td>
+                  </thead>
+                  <tbody>
+                    <tr v-for="product in order.products">
+                      <td>
+                        {{product.name}}
+                      </td>
+                      <td>
+                        {{product.quantity}}
+                      </td>
+                      <td>
+                        {{product.price * product.quantity}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table> 
+                <h4><b>Total:</b> ${{order.total}}</h4>
+              </div>
+              <br>
+              </div>
+            </div>
+            <!-- Fin Modal -->
+            <!-- Card -->
+            <div class="order-card text-center">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title ready_bg">
+                    <a :href="'#'+order.id" rel="modal:open">
+                      Pedido Nro {{order.id}}
+                    </a>
+                  </h5>
+                  <div class="price-block">
+                    <label>
+                      Hora: {{order.hour.substring(11, 16) }}
+                    </label>
+                    <label>
+                      Mesa: {{order.table_id }}
+                    </label>
+                    <label>
+                      Pagado:    
+                      <select 
+                        v-model="order.pay_status" 
+                        @change="handleChanguePayState(order)"
+                        class="pay_status" 
+                        :class="[order.payed ? 'payed' : 'unpayed' ]">
+                          <option :selected="order.payed == true" value="Sí">Sí</option>
+                          <option :selected="order.payed == false" value="No">No</option>
+                      </select>
+                    </label>
+                    <div class="order_state">
+                      <label>Mover a:</label>
+                      <a @click="handleChangueStatus(order, ready, 'requested')" class="btn yellow-button requested_bg">
+                        Solicitada
+                      </a>
+                      <a @click="handleChangueStatus(order, ready, 'requested')" class="btn yellow-button in_proccess_bg">
+                        En proceso
+                      </a>
+                      <a @click="handleChangueStatus(order, ready, 'completed')" class="btn yellow-button closed_bg">
+                        Entregada
+                      </a>
+                    </div>
+                    
+                    <a :href="'#'+order.id" rel="modal:open" class="see-more">
+                      Ver detalle
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin card -->
+          </div>
+        </div>
+      </div>
+      </template> 
+      <div class="text-center">
+        <%= link_to "Todas las ordenes", {controller: 'orders', action: 'history', id: params[:id] }, {class: 'btn acomer-primary mb-4'} %>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+</div>
+<script>
+
+
+  var app = new Vue({
+    el: '#ordenes',
+    data: {
+      requested: [],
+      in_process: [],
+      ready: [],
+      loading: true
+    },
+    methods: {
+      handleChanguePayState: function(order) {
+        console.log(order);
+                
+        if (order.pay_status == "Sí") {
+          var status = true
+          order.payed = true
+        } else if (order.pay_status == "No") {
+          var status = false
+          order.payed = false
+        }
+        axios.put('/orders/'+order.id+'.json',{
+          payed: status
+        })
+        .then(function(response){
+          
+        })
+      },
+      // Params = Objeto order; Status al que se desea cambiar;
+      handleChangueStatus: function(order, array_to_loop, status) {
+        axios.put('/orders/'+order.id+'.json',{
+          status: status
+        })
+      },
+      postChangueStatusActions: function(order, array_to_loop, status) {
+        var self = this
+        array_to_loop.forEach( function(req_order, index, array) {
+          if (order.id === req_order.id) {
+            array.splice(index, 1)
+            order.status = status
+            if (status == 'process') self.in_process.push(order)  
+            if (status == 'ready')  self.ready.push(order)
+            if (status == 'requested') self.requested.push(order)
+          }
+        })
+      },
+      addOrderToStatusColumn: function(order_id){
+        var self = this
+        var branch_id = window.location.pathname.split("/").pop()
+        axios.get('/orders/'+order_id+'.json')
+        .then(function(response) {
+          var order = response.data
+          if(order.payed){
+            order.pay_status = "Sí"
+          } else {
+            order.pay_status = "No"
+          }
+          console.log(response.data);
+          if(order.branch_id == branch_id){
+            self.requested.push(order)
+          }
+        })
+      }
+
+    },
+    created: function() {
+      self = this
+      var branch_id = window.location.pathname.split("/").pop()
+      axios.get('/orders/branch/'+branch_id+'.json')
+      .then(function(response) {
+        response.data.orders.forEach(function(order){
+          if(order.payed){
+            order.pay_status = "Sí"
+          } else {
+            order.pay_status = "No"
+          }
+          
+          if(order.status == 'requested' && order.reservation != "yes"){
+            self.requested.push(order)
+          } else if(order.status == 'process' && order.reservation != "yes"){
+            self.in_process.push(order)
+          } else if(order.status == 'ready' && order.reservation != "yes"){
+            self.ready.push(order)
+          }
+          self.loading = false
+        })
+      })
+    }
+    
+  })
+
+  
+  function handleRealTimeOrder(order_id){
+    app.addOrderToStatusColumn(order_id)
+  }
+  
+  function handleRealTimeChangueOrderStatus(order_id, old_status, new_status){
+    var self = this
+    axios.get('/orders/'+order_id+'.json')
+    .then(function(response) {
+      var order = response.data
+      console.log(order.payed);
+      if(order.payed){
+        order.pay_status = "Sí"
+      } else {
+        order.pay_status = "No"
+      }
+
+      if (old_status == 'requested') {
+        app.postChangueStatusActions(order, app.requested, new_status)
+      } else if (old_status == 'process') {
+        app.postChangueStatusActions(order, app.in_process, new_status)
+      } else if (old_status == 'ready') {
+        app.postChangueStatusActions(order, app.ready, new_status)
+      }
+    })
+    //VanillaToasts.create({
+    //  title: `Orden ${order_id} actualizada por: Matias`,
+    //  text: `La orden ${order_id} paso a ${new_status} `,
+    //  type: 'success',
+    //  timeout: 5000,
+    //});
+  }
+
+</script>

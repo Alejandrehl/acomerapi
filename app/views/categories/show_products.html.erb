@@ -1,0 +1,309 @@
+<div class="container pt-5 pb-5">
+    <% if @category.products.blank? %>
+        <h1 class="mb-5 text-center"><%= @category.name %></h1>
+        <h3 class="card-title text-center">Aún no se han agregado productos a esta categoría.</h3>
+        <p class="card-text text-center">Puedes añadir todos los productos que desees a una categoría</p>
+        
+        <div class="container col-md-6">
+            <%= form_with(model: Product, local: true) do |form| %>
+
+                <div class="form-group">
+                    <%= form.label :name, "Nombre del Producto" %>
+                    <%= form.text_field :name, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :description, "Descripción del Producto" %>
+                    <%= form.text_area :description, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :price, "Precio de Venta" %>
+                    <%= form.number_field :price, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :cost, "Costo del producto" %>
+                    <%= form.number_field :cost, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :ingredient, "Ingredientes" %>
+                    <%= form.text_field :ingredient, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :calories, "Calorías" %>
+                    <%= form.number_field :calories, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :proteins, "Proteínas" %>
+                    <%= form.number_field :proteins, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :carbohydrates, "Carbohidratos" %>
+                    <%= form.number_field :carbohydrates, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :saturated_fats, "Grasas Saturadas" %>
+                    <%= form.number_field :saturated_fats, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :unsaturated_fats, "Grasas No Saturadas" %>
+                    <%= form.number_field :unsaturated_fats, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :vegan, "Comida Vegana" %>
+                    <%= form.check_box :vegan %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :vegetarian, "Comida Vegetariana" %>
+                    <%= form.check_box :vegetarian %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :specialty, "Especialidad de la Casa" %>
+                    <%= form.check_box :specialty %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :activated, "Activada" %>
+                    <%= form.check_box :activated%>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :value_offer, "Valor Oferta" %>
+                    <%= form.number_field :value_offer %>
+                </div>
+
+                <div class="form-group">
+                    <%= form.text_field :category_id , type: "hidden", value: @category[:id]%>
+                </div>
+
+                <div class="form-group">
+                    <%= form.text_field :user_id , type: "hidden", value: current_user[:id]%>
+                </div>
+
+                <div class="form-group">
+                    <%= form.label :images, "Ingrese imagenes del Plato" %><br />
+                    <%= form.file_field :images, multiple: true, class: "form-control", onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes } %>
+                </div>
+
+                <div class="actions">
+                    <%= form.submit 'Añadir producto', class: "btn acomer-primary float-right" %>
+                </div>
+                
+            <% end %>
+        </div>
+
+    <% else %>
+
+        <div class="mb-5 text-center">
+            <h1><%= @category.name %></h1>
+            <h3 class="card-title">Productos agregados: <%= @products.count %></h3>
+            <%# <button class="btn acomer-primary" data-toggle="modal" data-target=".bd-example-modal-sizes">
+                <i class="batch-icon batch-icon-plus mr-3"></i>Nuevo Producto
+            </button> %>
+            <div class="button-product">
+            <% if current_user.has_role? :admin%>
+              <%= link_to "Agregar Productos", admin_products_path, class: "btn acomer-btn-primary-outline" %>
+            <% end %>
+            <%= link_to "Mis Categorías", admin_categories_path, class: "btn acomer-btn-primary-outline" %>
+            </div>
+            <div class="modal fade bd-example-modal-sizes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Agregar producto a categoría <strong><%= @category.name %></strong>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <%= form_with(model: Product, local: true) do |form| %>
+                            <div class="col-md-6 float-left">
+                                <div class="form-group">
+                                    <%= form.label :name, "Nombre del Producto" %>
+                                    <%= form.text_field :name, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :description, "Descripción del Producto" %>
+                                    <%= form.text_area :description, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :price, "Precio de Venta" %>
+                                    <%= form.number_field :price, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :cost, "Costo del producto" %>
+                                    <%= form.number_field :cost, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :ingredient, "Ingredientes" %>
+                                    <%= form.text_field :ingredient, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :calories, "Calorías" %>
+                                    <%= form.number_field :calories, class: "form-control" %>
+                                </div>
+                            </div>
+                            <div class="col-md-6 float-left">
+                                <div class="form-group">
+                                    <%= form.label :proteins, "Proteínas" %>
+                                    <%= form.number_field :proteins, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :carbohydrates, "Carbohidratos" %>
+                                    <%= form.number_field :carbohydrates, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :saturated_fats, "Grasas Saturadas" %>
+                                    <%= form.number_field :saturated_fats, class: "form-control" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :unsaturated_fats, "Grasas No Saturadas" %>
+                                    <%= form.number_field :unsaturated_fats, class: "form-control" %>
+                                </div>
+                                <div class="form-group">
+                                    <%= form.label :vegan, "Comida Vegana" %>
+                                    <%= form.check_box :vegan %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :vegetarian, "Comida Vegetariana" %>
+                                    <%= form.check_box :vegetarian %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :specialty, "Especialidad de la Casa" %>
+                                    <%= form.check_box :specialty %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :activated, "Activada" %>
+                                    <%= form.check_box :activated%>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :value_offer, "Valor Oferta" %>
+                                    <%= form.number_field :value_offer %>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.text_field :category_id , type: "hidden", value: @category[:id]%>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.text_field :user_id , type: "hidden", value: current_user[:id]%>
+                                </div>
+
+                                <div class="form-group">
+                                    <%= form.label :images, "Ingrese imagenes del Plato" %><br />
+                                    <%= form.file_field :images, multiple: true, class: "form-control", onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes }%>
+                                </div>
+                        
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <%= form.submit 'Añadir producto', class: "btn acomer-primary float-right" %>
+                                </div>
+                            </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% if !@products.blank? %> 
+            <div class=" mb-5 category-page">
+                <% @products.each do |p| %>
+                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5 category-item">
+                        <div class="mt-5 product-card-category card text-center <%= p.value_offer ? '' : '' %> <%= p.activated ? '' : 'product_desactivated' %>">
+                            <% if p.images.count > 0 %>
+                                <a class="foto-producto" href="#">
+                                    <%= image_tag(p.images.first, class: "card-img-top") %>
+                                </a>
+                            <% else %>
+                                <%= link_to "Agregar Imagen", product_path(p), class: "btn acomer-primary btn-sm btn-block" %>
+                            <% end %>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="#">
+                                        <%= p.name %>
+                                    </a>
+                                </h5>
+                                <div class="price-block">
+                                    <div class="price-new">
+                                        <% if p.value_offer %>
+                                            $<%= p.value_offer %>
+                                        <% else %>
+                                            $<%= p.price %>
+                                        <% end %>
+                                    </div>
+                                    <div>
+                                        <label class="text-lg">
+                                            <%= p.description %>
+                                        </label>
+                                        <br>
+                                        <% if p.value_offer %>
+                                            <strong>
+                                                Oferta / Happy Hour
+                                            </strong>
+                                        <% end %>
+                                    </div>
+                                    <% if p.activated == true %>
+                              <a href="" onclick="handleActivation(<%= p.id %>, false)" class="acomer-btn-primary deactivate_product">
+                                Desactivar producto
+                              </a>
+                            <% else %>
+                              <a href="" onclick="handleActivation(<%= p.id %>, true)" class="acomer-btn-primary activate_product">
+                                Activar producto
+                              </a>
+                            <% end %>
+                        <% if current_user.has_role? :admin %>
+                            <% if p.offer_activated == true %>
+                              <a href="" onclick="handleOffer(<%= p.id %>, false)" class="acomer-btn-primary deactivate_product">
+                                Desactivar promoción
+                              </a>
+                            <% else %>
+                              <a href="" onclick="handleOffer(<%= p.id %>, true)" class="acomer-btn-primary activate_product">
+                                Activar promoción
+                              </a>
+                            <% end %>
+                        <% end %>
+                                </div>
+                                <div class="ratings">
+                                    <i class="batch-icon batch-icon-star-alt rating-highlighted"></i>
+                                    <i class="batch-icon batch-icon-star-alt rating-highlighted"></i>
+                                    <i class="batch-icon batch-icon-star-alt rating-highlighted"></i>
+                                    <i class="batch-icon batch-icon-star-alt rating-highlighted"></i>
+                                    <i class="batch-icon batch-icon-star-alt"></i>
+                                </div>
+                                <%= link_to 'Ver Producto', product_path(p), class: "btn acomer-primary" %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    
+    <% end %>
+
+    </div>
+</div>

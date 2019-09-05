@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  price: 1
+  cost: 1
+  ingredient: MyString
+  calories: 1
+  proteins: 1
+  carbohydrates: 1
+  saturated_fats: 1
+  unsaturated_fats: 1
+  vegan: false
+  vegetarian: false
+  specialty: false
+  activated: false
+  value_offer: 1
+  restaurant: one
+
+two:
+  name: MyString
+  description: MyText
+  price: 1
+  cost: 1
+  ingredient: MyString
+  calories: 1
+  proteins: 1
+  carbohydrates: 1
+  saturated_fats: 1
+  unsaturated_fats: 1
+  vegan: false
+  vegetarian: false
+  specialty: false
+  activated: false
+  value_offer: 1
+  restaurant: two

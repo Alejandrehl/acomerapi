@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Products Id's:</strong>
+  <%= @order.products %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @order.total %>
+</p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @order.payment_method %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+
+
+<p>
+  <strong>Specification:</strong>
+  <%= @order.specification %>
+</p>
+
+<p>
+  <strong>Reservation:</strong>
+  <%= @order.reservation %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user.name %>
+</p>
+
+<p>
+  <strong>Products:</strong> 
+  <%= @order.product_ids %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to '<i class="batch batch-icon-arrow-left"></i>'.html_safe, orders_path, class: "acomer-btn-secundary" %>

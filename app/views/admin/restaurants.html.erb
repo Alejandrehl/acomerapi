@@ -1,0 +1,35 @@
+<div class="container pt-5 pb-5">
+    <div class="text-center mb-5">
+        <h2>Mis Restaurantes</h2>
+        <%= link_to 'Nuevo Restaurant'.html_safe, new_restaurant_path, class: "btn acomer-primary" %>
+    </div>
+    <% if @restaurants.blank? %>
+    <div> 
+        <div class="card alert alert-warning text-center">
+        <h4 class="tex-center">
+            Aún no has agregado restaurantes a tu lista.
+        </h4>
+        </div>
+    </div>
+    <% else %>
+            <div class="row mb-5 category-page">
+        <% @restaurants.each do |restaurant| %>
+                <div class="restaurant-card col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                    <div class="card text-center">
+                        <a class="foto-producto mb-5" href="/restaurants/<%= restaurant.id %>">
+                        <% if restaurant.image.present? %>
+                            <%= image_tag(restaurant.image, class: "card-img-top") %>
+                        <% else %>
+                          <img src="/img/miss.png" >
+                        <% end %>
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"> <%= link_to restaurant.name, restaurant  %></h5>
+                            <%= link_to 'Ver restaurant', restaurant, class: "btn acomer-primary" %>
+                        </div>
+                    </div>
+                </div>
+        <% end %>
+            </div>
+    <% end %>
+</div>

@@ -1,0 +1,39 @@
+<div class="container mt-5 mb-5 text-center">
+    <% if current_user.has_role? :branch_leader %>
+      <%= link_to 'Nuevo Mesero', '/admin_waiter_account/form', class: "btn acomer-primary" %>
+    <% end %>
+    <h1>Meseros</h1>
+    <% if current_user.has_role? :admin %>
+      <%= link_to "Volver", admin_waiters_path, class: "btn acomer-btn-primary-outline" %>
+    <% end %>
+
+    <div class="row mt-5 mb-5 category-page staff-item" style="float:none !important;">
+        <% @waiters.each do |waiter| %>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="price-block">
+                            <div>
+                                <p class="logo-restaurant">
+                                    <% if waiter.profile.attached? %>
+                                    <%= image_tag(waiter.profile, width:'100%') %>
+                                    <% else %>
+                                    <img src="/img/not-avatar.jpg" width="100%" alt="Acomer">
+                                    <% end %>
+                                </p>
+                                <strong>
+                                    <%= waiter.name %> <%= waiter.last_name %>
+                                </strong>
+                                <label class="mt-5">
+                                    <strong><%= waiter.email %></strong>
+                                </label>
+                            </div>
+                        </div>
+                        <%= link_to 'Ver Mesero', {controller: "admin_waiter_account" ,action: "show" , id: waiter.id}, class: "btn acomer-primary" %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
+</div>

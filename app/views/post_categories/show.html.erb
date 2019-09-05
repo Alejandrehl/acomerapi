@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @post_category.name %>
+</p>
+
+<%= link_to 'Edit', edit_post_category_path(@post_category) %> |
+<%= link_to '<i class="batch batch-icon-arrow-left"></i>'.html_safe, post_categories_path, class: "acomer-btn-secundary" %>

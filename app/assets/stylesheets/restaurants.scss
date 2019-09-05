@@ -1,0 +1,215 @@
+// Place all the styles related to the restaurants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+ul[class="pagination"]{
+    width: 28%;
+    margin-left: 72%;
+    .page-link{
+        a[class="page-link"]{
+            background: #f7cf53 !important;
+        }
+    }
+}
+#datatable-1_wrapper{
+
+    .dataTables_filter{
+        overflow: hidden;
+        label{
+            width: 50%;
+            margin-left: 50%;
+            input[type="search"]{
+                width: 90%;
+            }
+        }
+        
+    }
+}
+.card{
+    padding: 2%;
+}
+.formulario,.form-menus {
+    width: 100%;
+    float: left;
+    padding: 2%;
+    h2{
+      text-align: center;
+    }
+    ul{
+      li{
+        list-style-type: none;
+      }
+    }
+    select[id="branch_branch_category"], select[id="menu_branch_id"]{
+        width: 100%;
+        border-radius: 5px;
+        padding: 2%;
+    }
+
+    input,textarea,select{
+      width: 91% !important;
+      float: left;
+      border-radius: 5px;
+      border: solid 1px #ccc;
+      padding: 5px 10px;
+      margin: 5px 0 15px;
+    }
+    textarea{
+        height: 100px;
+    }
+    label{
+      font-size: 16px;
+        width: 94%;
+        float: left;
+        margin: 0;
+    }
+    .acomer-btn-primary,
+    .acomer-btn-secundary{
+      width: initial !important;
+      i{
+
+        font-style: normal !important;
+      }
+    }
+    .field{
+        width: 100%;
+        float: left;
+        margin: 5px 0;
+        input[type="checkbox"]{
+            width: 5% !important;
+            float: left;
+            margin: 0;
+        }
+        small{
+          width: 100%;
+          float: left;
+        }
+    }
+    .actions{
+      .acomer-btn-primary{
+         margin-bottom:10px !important;
+        
+      }
+    }
+  }
+  .acomer-btn-primary{
+    width: initial !important;
+  }
+
+
+
+.tarjeta-datos{
+    width: 100%;
+    padding: 3%;
+    .datos-4{
+        width: 100%;
+        float: left;
+        p{
+          font-size: 13px;
+            margin: 4% 0;
+            @media screen and(max-width:769px){
+                margin: 2% 0;
+            }
+            strong{
+              width: 100%;
+              float: left;
+            }
+        }
+        .fotos_show_restaurant{
+            width: 100%;
+            float: left;
+            strong{
+                width: 100%;
+                float: left;
+            }
+        }
+        .fotos_restaurant{
+            width: 45%;
+            height: 100px;
+            margin: 2%;
+            float: left;
+            overflow: hidden;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                overflow: hidden;
+            }
+        }
+
+        .logo-restaurant,.fotos-sucursal{
+          
+            strong{
+                width: 100%;
+                float: left;
+            }
+            img{
+                width: 25%;
+                height: 85px;
+                object-fit: cover;
+                margin: 1%;
+            }
+        }
+        .fotos-sucursal{
+          height: 200px;
+          overflow: hidden;
+          overflow-y: scroll;
+        }
+
+        .qr-sucursal{
+            width: 100%;
+            float: left;
+        }
+        .acomer-btn-primary,
+        .acomer-btn-secundary,
+        .acomer-btn-tertiary{
+          width: initial !important;
+        }
+    }
+}
+.item-restaurant{
+  .acomer-btn-primary,.acomer-btn-tertiary{
+    margin-bottom: 10px !important;
+  }
+}
+.restaurant-card{
+  float: left;
+  .price-block{
+    height: 70px;
+  }
+}
+.form-menus{
+    
+    li{
+      width: 100%;
+      float: left;
+    }
+    input[type="checkbox"]{
+      width: 5% !important;
+    }
+    label{
+      width: 95% !important;
+    }
+  }
+  
+.new-branch{
+    input[type="checkbox"]{
+        width: 4% !important;
+        float: left;
+    }
+    label{
+        width: 80% !important;
+        float: left;
+    }
+    .actions{
+      float: left;
+      width: 100%;
+      .acomer-btn-primary{
+        float: right;
+      }
+    }
+}
+.text-center{
+  h2{
+    font-weight: 500 !important;
+  }
+}

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_admin: 1
+  id_cook: 1
+  branch: 
+
+two:
+  id_admin: 1
+  id_cook: 1
+  branch: 

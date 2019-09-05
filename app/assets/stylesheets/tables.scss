@@ -1,0 +1,58 @@
+// Place all the styles related to the Tables controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.tables-branch{
+  .price-block{
+    label{
+      width: 100%;
+    } 
+  }
+}
+.tables-admin{
+  .button-center{
+    display: block;
+    float: none;
+    margin: 0 auto;
+    width: 27%;
+    @media screen and(max-width:1025px){
+      width: 40%;
+    }
+    @media screen and(max-width:769px){
+      width:43%;
+    }
+    @media screen and(max-width:426px){
+      width: 100%;
+    }
+  }
+  .acomer-btn-secundary,
+  .acomer-btn-tertiary{
+    width: initial;
+  }
+  .acomer-btn-primary{
+    width: initial;
+    @media screen and(max-width:426px){
+      width: 70%;
+      margin-top: 5px !important;
+    }
+  }
+}
+.mesas-item{
+  .acomer-btn-primary-outline{
+    margin-bottom: 10px !important;
+    margin-left: initial !important;
+    float: left;
+  }
+  .category-page{
+    float: left;
+    .card-mesas{
+      float: left;
+      .card-body{
+        float:left;
+        .acomer-btn-primary{
+          width: 100% !important;
+          margin-left: initial !important;
+        }
+      }
+    }
+  }
+}

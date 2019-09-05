@@ -1,0 +1,85 @@
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <% @products = Product.where(user_id: current_user[:id]) %>
+    <%= form.collection_check_boxes :product_ids, @products, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total %>
+    <%= form.number_field :total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_method %>
+    <%= form.text_field :payment_method %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <select name = order[status]> 
+      <option value="pendiente" selected >Pendiente</option>
+      <option value="proceso">En Proceso</option>
+      <option value="entregado">Entregado</option> 
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_type %>
+    <%= form.text_field :request_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :specification %>
+    <%= form.text_area :specification %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reservation %>
+    <%= form.text_field :reservation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cart %>
+    <%= form.check_box :cart %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_cart %>
+    <%= form.number_field :id_cart %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cart_type %>
+    <%= form.text_field :cart_type %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :user_id , type: "hidden", value: current_user[:id]%>
+  </div>
+
+  <div class="field">
+    <%= form.label :branch_id, 'Sucursal Seleccionada' %>    
+    <%= form.select(:branch_id, Branch.all.collect {|r| [ r.name, r.id ] }) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tables_id, 'Tabla Que Ordena' %>    
+    <%= form.select(:tables_id, Table.all.collect {|r| [ r.description, r.id ] }) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

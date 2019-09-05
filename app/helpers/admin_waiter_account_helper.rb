@@ -1,0 +1,2 @@
+module AdminWaiterAccountHelper
+end

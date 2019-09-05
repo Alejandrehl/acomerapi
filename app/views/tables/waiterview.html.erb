@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<div class="tarjeta-datos">
+  <div class="row">
+      <% @waiteraccount = AdminWaiterAccount.find_by(id_waiter: current_user.id) %>
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+        <p>
+          <h3>Mesas Asignadas</h3>
+        </p>
+      <%@waitertable = WaiterTable.where(user_id: current_user.id)%>
+      <% if @waitertable %>
+        <table>
+          <thead>
+            <tr>
+              <th>Sucursal</th>
+              <th>Descripcion</th>
+              <th>Numero</th>
+              <th></th>
+            <tr>
+          </thead>
+          <tbody>
+            <% @waitertable.each do |wt| %>
+              <tr>
+                <% @table = Table.find(wt.table_id) %>
+                <td><%= Branch.find(@table.branch_id).name%></td>
+                <td><%= @table.description %></td>
+                <td><%= @table.number %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

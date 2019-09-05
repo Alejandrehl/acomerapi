@@ -1,0 +1,39 @@
+
+  <h1>Asignacion de Branch Destacado</h1>
+
+     <%# <%= f.select :roles,options_from_collection_for_select(Role.all,"name","name") %>
+  <p>Seleccione el branch que desea destacar:</p>
+  <div class="field">
+
+  <form action="<%= featured_branch_featuredbranch_path %>" method="POST">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <label> Branch: </label>
+    <br/>
+    <select id="branch_id" name="branch_id">
+      <% @branch.each do |b| %>
+        <option value="<%= b.id%>"><%= b.name%></option>
+      <% end %>
+    </select>
+  </div>
+  <br/>
+  <div class="field">
+    <label> Descripcion: </label>
+    <input id="description" name="description" size="30" type="text">
+  </div>
+  <br/>
+  
+  <h2>Locales destacados:</h2>
+  <ul>
+    <% @featuredbranches.each do |featured| %>
+    <li>
+        <%= featured.branch.name %>
+        <%= featured.description %>
+        <% end %>
+    </li>
+  </ul>
+
+  <div class="form-actions">
+    <%= submit_tag(value = "Submit") %>
+  </div>
+</form>
+

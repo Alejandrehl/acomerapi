@@ -1,0 +1,23 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID Sucursal</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Creada</th>
+      <th scope="col">Actualizada</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @featured_branches.each do |featured_branch| %>
+    <tr>
+      <th scope="row"><%= featured_branch.id %></th>
+      <td scope="row"><%= featured_branch.branch_id %></td>
+      <td scope="row"><%= featured_branch.description %></td>
+      <td scope="row"><%= featured_branch.created_at %></td>
+      <td scope="row"><%= featured_branch.updated_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

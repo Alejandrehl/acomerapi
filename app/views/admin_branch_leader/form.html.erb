@@ -1,0 +1,38 @@
+<%= form_with(local: true, url: admin_branch_leader_create_path, method: :post, class: "container mt-5 mb-5") do |f| %>
+      <h2 class="text-center"> Nuevo Jefe de Local </h2>
+      <div class="form-group">
+        <%= f.label :name, "Nombre" %><br />
+        <%= f.text_field :name, autofocus: true, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name, "Apellido" %><br />
+        <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :email, "Correo electrónico" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, "Contraseña" %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> caracteres mínimo.)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :branch_id, 'Sucursal' %>
+        <select id="branch_id" name="branch_id" class ="form-control" v-model="id_branch">
+          <% @branches.each do |b| %>
+            <option value="<%= b.id%>"><%= b.name%></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Crear", class: "btn acomer-primary" %>
+        <%= link_to 'Atras', admin_leaders_path, class: "btn acomer-primary" %>
+      </div>
+<% end %>

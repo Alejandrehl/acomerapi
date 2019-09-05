@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="right-column sisu">
+      <div class="row mx-0">
+        <div class="col-md-7 signin-right-column px-5 bg-dark" style="background-image: url('/img/burger-auth.jpg')">
+          <a class="signin-logo d-sm-block d-md-none" href="#">
+            <img src="/img/logo.png" width="145" height="32.3" alt="Acomer">
+          </a>
+        </div>
+        <div class="col-md-5 signin-left-column bg-white px-5">
+          <a class="signin-logo d-sm-none d-md-block" href="/">
+            <img src="/img/logo.png" height="auto" alt="Acomer">
+          </a>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+              <div class="field">
+                <%= f.label :email, "Correo electrónico" %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              </div>
+
+              <div class="actions">
+                <%= f.submit "Enviar instrucciones de recuperación", class: "btn acomer-primary" %>
+              </div>
+            <% end %>
+            <p class="text-left">
+              <%= render "devise/shared/links" %>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

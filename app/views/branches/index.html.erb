@@ -1,0 +1,65 @@
+<div class="container table-responsive pt-5 pb-5">
+<div class="text-left mb-5">
+  <h2>Mis Sucursales</h2>
+  <% if @restaurants.blank? %>
+    <%= link_to '<i class="batch-icon batch-icon-plus mr-3"></i>Nuevo Restaurant'.html_safe, new_restaurant_path, class: "btn acomer-primary" %>
+  <% else %>
+    <%= link_to '<i class="batch-icon batch-icon-plus mr-3"></i>Nueva Sucursal'.html_safe, new_branch_path, class: "btn acomer-primary" %>
+  <% end %>
+</div>
+<% if @branches.count == 0 %>
+  <div> 
+    <div class="card alert alert-warning text-center">
+      <h4 class="tex-center">
+        <% if @restaurants.blank? %>
+          Debes agregar un restaurant antes de agregar sucursales.
+        <% else %>
+          Aún no has agregado sucursales a tus restaurantes.
+        <% end %>
+      </h4>
+    </div>
+  </div>
+<% else %>
+  <table id="datatable-1" class="table table-datatable table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Restaurant</th>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Dirección</th>
+      <th>Email de administrador</th>
+      <th>Teléfono de administrador</th>
+      <th>Información</th>
+      <th>Hora de apertura</th>
+      <th>Hora de cierre</th>
+      <th>Categoria</th>
+      <th>Acciones</th>
+
+    </tr>
+    </thead>
+    <tbody>
+      <% @branches.each do |branch| %>
+        <tr>
+          <% @restaurant = Restaurant.find(branch.restaurant_id) %>
+          <td><%= @restaurant.name %></td>
+          <td><%= branch.name %></td>
+          <td><%= branch.telephone %></td>
+          <td><%= branch.street %></td>
+          <td><%= branch.email_manager %></td>
+          <td><%= branch.telephone_manager %></td>
+          <td><%= branch.information %></td>
+          <td><%= branch.hour_op %></td>
+          <td><%= branch.hour_cl %></td>
+          <td><%= branch.branch_category %></td>
+          <td>
+            <%= link_to '<i class="batch-icon batch-icon-eye"></i><br>'.html_safe, branch, class: "btn btn-sm btn-outline-primary mb-2" %>
+            <%= link_to '<i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_branch_path(branch), class: "btn btn-sm acomer-btn-primary-outline mb-2" %>
+            <%= link_to '<i class="batch-icon batch-icon-bin-alt-2"></i>'.html_safe, branch, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+</div>
+<% end %>

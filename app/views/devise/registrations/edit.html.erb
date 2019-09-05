@@ -1,0 +1,119 @@
+<div class="container pt-5 pb-5">
+
+  <div class="text-left mb-5">
+      <h2>Mis preferencias</h2>
+  </div>
+  <div class="container mt-5"> 
+      <div class="card alert alert-info text-center">
+          <h4>
+              Aquí puedes actualizar tus datos.
+          </h4>
+      </div>
+  </div>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="col-md-6 float-left">
+      <div class="form-group">
+        <%= f.label :email, "Correo electrónico" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, "Nueva contraseña" %> <i>(Dejar en blanco si no deseas cambiar tu contraseña.)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirmar nueva contraseña" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :name, "Nombre" %><br />
+        <%= f.text_field :name, autofocus: true, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name, "Apellido" %><br />
+        <%= f.text_field :last_name, autofocus: true, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone, "Teléfono" %><br />
+        <%= f.text_field :phone, autofocus: true, class: "form-control", required: true %>
+      </div>
+
+     <!--- <div class="form-group">
+        <%= f.label :rut, "RUT" %><br />
+        <%= f.text_field :rut, autofocus: true, class: "form-control", required: true %>
+      </div>--->
+
+      <div class="form-group">
+        <%= f.label :birthdate, "Fecha de nacimiento" %><br />
+        <%= f.date_field :birthdate, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :gender, "Género" %><br />
+        <%= f.text_field :gender, autofocus: true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-md-6 float-left">
+      <div class="form-group">
+        <%= f.label :biography, "Biografía" %><br />
+        <%= f.text_field :biography, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :linkedin, "LinkedIn" %><br />
+        <%= f.text_field :linkedin, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :twitter, "Twitter" %><br />
+        <%= f.text_field :twitter, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :web, "Página web" %><br />
+        <%= f.text_field :web, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :instagram, "Instagram" %><br />
+        <%= f.text_field :instagram, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :profile, "Ingrese una imagen de perfil" %><br />
+        <%= f.file_field :profile, class: "form-control", onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes }%>
+      </div>
+
+      <% if current_user.has_role? :admin %>
+        <div class="form-group">
+          <%= f.label :branch_number, "Cantidad de Sucursales:" %><br />
+          <%= f.text_field :branch_number, autofocus: true, class: "form-control", required: true %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :current_password, "Contraseña actual" %> <i>(Debes ingresar tu contraseña actual para confirmar los cambios.)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Actualizar", class: "btn acomer-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+<hr>
+<div class="container pt-5 pb-5">
+  <h3>¿Cerrar cuenta?</h3>
+  <%= button_to "Cerrar cuenta", registration_path(resource_name), data: { confirm: "¿Estás seguro?" }, method: :delete, class: "acomer-btn-tertiary" %>
+  <%= link_to "Volver", :back %>
+</div>

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  products: MyString
+  total: 1
+  transaction: MyString
+  status: MyString
+  request_type: MyString
+  specification: MyText
+  reservation: MyString
+  cart: false
+  id_cart: 1
+  cart_type: MyString
+  user: one
+  menu: one
+  branch: one
+
+two:
+  products: MyString
+  total: 1
+  transaction: MyString
+  status: MyString
+  request_type: MyString
+  specification: MyText
+  reservation: MyString
+  cart: false
+  id_cart: 1
+  cart_type: MyString
+  user: two
+  menu: two
+  branch: two

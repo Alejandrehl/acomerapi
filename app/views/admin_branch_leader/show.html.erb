@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<div class="tarjeta-datos">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+
+      <p class="logo-restaurant">
+        <% if @leader.profile.attached? %>
+          <%= image_tag(@leader.profile) %>
+        <% else %>
+          <img src="/img/not-avatar.jpg" width="auto" height="auto" alt="Acomer">
+        <% end %>
+      </p>
+      <% @leaderaccount = AdminBranchLeader.find_by(id_leader: @leader.id) %>
+      <p>
+        <strong>Nombre:</strong>
+        <%= @leader.name %>
+      </p>
+
+      <p>
+        <strong>Correo:</strong>
+        <%= @leader.email %>
+      </p>
+    </div>
+
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+        <%= link_to 'Eliminar Lider de Sucursal', {controller:"admin_branch_leader", action: "delete", id: @leader.id}, data: { confirm: "¿Seguro desea eliminar a #{@leader.name} de su equipo de lideres?" }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+    </div>
+  </div>
+</div>

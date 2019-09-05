@@ -1,0 +1,49 @@
+<%= form_with(model: review, local: true) do |form| %>
+  <% if review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :stars %>
+    <%= form.text_field :stars %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.datetime_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commentary %>
+    <%= form.text_field :commentary %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :user_id , type: "hidden", value: current_user[:id]%>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :menu_id, 'Menu' %>    
+    <%= form.select(:menu_id, Menu.all.collect {|r| [r.name, r.id] }) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_id, 'Seleccione el Plato' %>
+    <%= form.select(:product_id, Product.all.collect {|r| [r.name, r.id] }) %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

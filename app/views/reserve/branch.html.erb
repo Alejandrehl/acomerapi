@@ -1,0 +1,355 @@
+<div id="pedidos" >
+  <div class="card">
+    <div class="card-body">
+      <h1>Reservas</h1>
+    </div>
+  </div>
+</div>
+
+
+<div >
+  <div class="ordenes">
+    <div class="columna">
+      <h3 class="text-center">Solicitadas</h3>
+      <div class="orders mb-5 category-page " id="pending_orders_section">
+        <% @requested.each do |re| %>
+          <!-- Modal -->
+          <div id="<%= re.id %>" class="modal">
+            <h4><b>Numero de Orden:</b> <%= re.order.id %></h4>
+            <div>
+              <label>
+                <b>Estado:</b>
+                <% if re.order.status == 'requested' %>
+                  Pendiente
+                <% end %>
+              </label>
+              <br>
+              <label>
+                <b>Nombre del cliente:</b>
+                <%= re.order.user.id == 1 ? 'Cliente no registrado' : re.order.user.name %>
+              </label>
+              <br>
+              <label>
+                <b>Especificaciones:</b>
+                <%= re.order.specification %>
+              </label>
+              <br>
+              <label>
+                <b>Metodo de pago:</b>
+                <%= re.order.payment_modality %>
+              </label>
+              <br>
+              <label>
+                <b>Metodo de pago:</b>
+                <%= re.order.payment_modality %>
+              </label>
+              <br>
+              <label>
+                <b>Id de la mesa:</b>
+                <%= re.order.tables_id %>
+              </label>
+              <br>
+            <div>
+              <h3> Productos de la orden </h3>
+              <table class="table_modal_products">
+                <thead >
+                  <td>Nombre</td>
+                  <td>Cantidad</td>
+                  <td>Subtotal</td>
+                </thead>
+                <tbody>
+                  <% re.order.order_details.each do |proord| %>
+                  <tr>
+                    <td>
+                      <%= proord.product.name %>
+                    </td>
+                    <td>
+                      <%= proord.quantity %>
+                    </td>
+                    <td>
+                      <%= proord.product.price * proord.quantity %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table> 
+              <h4><b>Total:</b> $<%= re.order.total %> </h4>
+            </div>
+            <br>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="order-card text-center">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title requested_bg">
+                  <a href="#<%= re.id %>" rel="modal:open">
+                    Reserva Nro <%= re.id %>
+                  </a>
+                </h5>
+                <div class="price-block">
+                  <!-- <label>
+                    <b>Total: </b>$<%= re.order.total %>
+                  </label> -->
+                  <label>
+                    Fecha: <%= re.reservation_day.strftime("%D") %>
+                  </label>
+                  <label>
+                    Hora: <%= re.reservation_hour.strftime('%H:%M') %>
+                  </label>
+                  <label>
+                    Pagado:
+                    <% re.order.payed ? 'Sí ✔' : 'No ❌' %>
+                    <select class="pay_status <%= re.order.payed ? 'payed' : 'unpayed' %>">
+                      <% if re.order.payed %>
+                        <option selected disabled>Sí</option>
+                        <option >No</option>
+                      <% else %>
+                        <option selected disabled>No</option>
+                        <option >Sí</option>
+                      <% end %>
+                    </select>
+                  </label>
+            
+                  
+                  <a href="#<%=re.id%>" rel="modal:open" class="see-more">
+                    Ver detalle
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Fin card -->
+        <% end %>
+      </div>
+    </div>
+    <div class="columna">
+      <h3 class="text-center">Cercanas</h3>
+      <div class="orders mb-5 category-page " id="pending_orders_section">
+        <% @close.each do |re| %>
+          <!-- Modal -->
+          <div id="<%= re.id %>" class="modal">
+            <h4><b>Numero de Orden:</b> <%= re.order.id %></h4>
+            <div>
+              <label>
+                <b>Estado:</b>
+                <% if re.order.status == 'requested' %>
+                  Pendiente
+                <% end %>
+              </label>
+              <br>
+              <label>
+                <b>Nombre del cliente:</b>
+                <%= re.order.user.id == 1 ? 'Cliente no registrado' : re.order.user.name %>
+              </label>
+              <br>
+              <label>
+                <b>Especificaciones:</b>
+                <%= re.order.specification %>
+              </label>
+              <br>
+              <label>
+                <b>Metodo de pago:</b>
+                <%= re.order.payment_modality %>
+              </label>
+              <br>
+              <label>
+                <b>Metodo de pago:</b>
+                <%= re.order.payment_modality %>
+              </label>
+              <br>
+              <label>
+                <b>Id de la mesa:</b>
+                <%= re.order.tables_id %>
+              </label>
+              <br>
+            <div>
+              <h3> Productos de la orden </h3>
+              <table class="table_modal_products">
+                <thead >
+                  <td>Nombre</td>
+                  <td>Cantidad</td>
+                  <td>Subtotal</td>
+                </thead>
+                <tbody>
+                  <% re.order.order_details.each do |proord| %>
+                  <tr>
+                    <td>
+                      <%= proord.product.name %>
+                    </td>
+                    <td>
+                      <%= proord.quantity %>
+                    </td>
+                    <td>
+                      <%= proord.product.price * proord.quantity %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table> 
+              <h4><b>Total:</b> $<%= re.order.total %> </h4>
+            </div>
+            <br>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="order-card text-center">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title in_progress_bg">
+                  <a href="#<%= re.id %>" rel="modal:open">
+                    Reserva Nro <%= re.id %>
+                  </a>
+                </h5>
+                <div class="price-block">
+                  <!-- <label>
+                    <b>Total: </b>$<%= re.order.total %>
+                  </label> -->
+                  <label>
+                    Fecha: <%= re.reservation_day.strftime("%D") %>
+                  </label>
+                  <label>
+                    Hora: <%= re.reservation_hour.strftime('%H:%M') %>
+                  </label>
+                  <label>
+                    Pagado:
+                    <% re.order.payed ? 'Sí ✔' : 'No ❌' %>
+                    <select class="pay_status <%= re.order.payed ? 'payed' : 'unpayed' %>">
+                      <% if re.order.payed %>
+                        <option selected disabled>Sí</option>
+                        <option >No</option>
+                      <% else %>
+                        <option selected disabled>No</option>
+                        <option >Sí</option>
+                      <% end %>
+                    </select>
+                  </label>
+            
+                  
+                  <a href="#<%=re.id%>" rel="modal:open" class="see-more">
+                    Ver detalle
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Fin card -->
+        <% end %>
+      </div>
+    </div>
+    <div class="columna">
+      <h3 class="text-center">Listas para entregar</h3>
+      <div class="orders mb-5 category-page " id="pending_orders_section">
+        <% @ready.each do |re| %>
+          <!-- Modal -->
+          <div id="<%= re.id %>" class="modal">
+            <h4><b>Numero de Orden:</b> <%= re.order.id %></h4>
+            <div>
+              <label>
+                <b>Estado:</b>
+                <% if re.order.status == 'requested' %>
+                  Pendiente
+                <% end %>
+              </label>
+              <br>
+              <label>
+                <b>Nombre del cliente:</b>
+                <%= re.order.user.id == 1 ? 'Cliente no registrado' : re.order.user.name %>
+              </label>
+              <br>
+              <label>
+                <b>Especificaciones:</b>
+                <%= re.order.specification %>
+              </label>
+              <br>
+              <label>
+                <b>Metodo de pago:</b>
+                <%= re.order.payment_modality %>
+              </label>
+              <br>
+              <label>
+                <b>Metodo de pago:</b>
+                <%= re.order.payment_modality %>
+              </label>
+              <br>
+              <label>
+                <b>Id de la mesa:</b>
+                <%= re.order.tables_id %>
+              </label>
+              <br>
+            <div>
+              <h3> Productos de la orden </h3>
+              <table class="table_modal_products">
+                <thead >
+                  <td>Nombre</td>
+                  <td>Cantidad</td>
+                  <td>Subtotal</td>
+                </thead>
+                <tbody>
+                  <% re.order.order_details.each do |proord| %>
+                  <tr>
+                    <td>
+                      <%= proord.product.name %>
+                    </td>
+                    <td>
+                      <%= proord.quantity %>
+                    </td>
+                    <td>
+                      <%= proord.product.price * proord.quantity %>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table> 
+              <h4><b>Total:</b> $<%= re.order.total %> </h4>
+            </div>
+            <br>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="order-card text-center">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title ready_bg">
+                  <a href="#<%= re.id %>" rel="modal:open">
+                    Reserva Nro <%= re.id %>
+                  </a>
+                </h5>
+                <div class="price-block">
+                  <!-- <label>
+                    <b>Total: </b>$<%= re.order.total %>
+                  </label> -->
+                  <label>
+                    Mesa: <%= re.number_people %>
+                  </label>
+                  <label>
+                    Pagado:
+                    <% re.order.payed ? 'Sí ✔' : 'No ❌' %>
+                    <select class="pay_status <%= re.order.payed ? 'payed' : 'unpayed' %>">
+                      <% if re.order.payed %>
+                        <option selected disabled>Sí</option>
+                        <option >No</option>
+                      <% else %>
+                        <option selected disabled>No</option>
+                        <option >Sí</option>
+                      <% end %>
+                    </select>
+                  </label>
+            
+                  
+                  <a href="#<%=re.id%>" rel="modal:open" class="see-more">
+                    Ver detalle
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Fin card -->
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

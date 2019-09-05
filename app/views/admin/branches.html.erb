@@ -1,0 +1,45 @@
+<div class="container pt-5 pb-5">
+    <div class="text-center mb-5">
+      <h2>Mis Sucursales</h2>
+      <% if @restaurants.blank? %>
+        <%= link_to 'Nuevo Restaurant'.html_safe, new_restaurant_path, class: "btn acomer-primary" %>
+      <% else %>
+        <%= link_to 'Nueva Sucursal'.html_safe, new_branch_path, class: "btn acomer-primary" %>
+      <% end %>
+    </div>
+    <% if @branches.blank? %>
+      <div> 
+        <div class="card alert alert-warning text-center">
+          <h4 class="tex-center">
+            <% if @restaurants.blank? %>
+              Debes agregar un restaurant antes de agregar sucursales.
+            <% else %>
+              Aún no has agregado sucursales a tus restaurantes.
+            <% end %>
+          </h4>
+        </div>
+      </div>
+    <% else %>
+          <div class="mb-5 category-page">
+      <% @branches.each do |branch| %>
+              <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5 branch-item">
+                  <div class="card text-center">
+                      <a class="foto-producto " href="/branches/<%= branch.id %>">
+                          <% if branch.image_paths.size != 0 %>
+                            <% branch.image_paths.each do |f| %>
+                              <%= image_tag(f.url) %>
+                            <% end %> 
+                          <% end %>
+                      </a>
+                      <div class="card-body">
+                          <h5 class="card-title">
+                              <%= link_to branch.name, branch  %>
+                          </h5>
+                          <%= link_to 'Ver sucursal', branch, class: "btn acomer-primary" %>
+                      </div>
+                  </div>
+              </div>
+      <% end %>
+          </div>
+    <% end %>
+</div>

@@ -1,0 +1,49 @@
+<div class="container pt-5 pb-5">
+<div class="text-center mb-5">
+  <h2>Mis categorías</h2>
+  <%= link_to 'Nueva Categoría'.html_safe, new_category_path, class: "btn acomer-primary" %>
+</div>
+
+<% if @categories.blank?%>
+  <div> 
+    <div class="card alert alert-warning text-center">
+      <h4>
+        Aún no has agregado categorías para tus productos.
+      </h4>
+    </div>
+  </div>
+<% else %>
+<div class="mb-5 category-page">
+    <% @categories.each do |category| %>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5 category-item">
+            <div class="card text-center">
+                <div class="card-body card-category">
+                    <h5 class="card-title">
+                      <%= link_to category.name, categories_show_products_path(category)  %>
+                    </h5>
+                    <div class="price-block">
+                        <div>
+                            <label>
+                                <%= category.description %>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="price-block">
+                        <div>
+                            <label>
+                              Cantidad de productos:
+                              <%= category.products.count %>
+                            </label>
+                        </div>
+                    </div>
+                    <%= link_to '<i class="batch-icon batch-icon-eye"></i>'.html_safe, categories_show_products_path(category), class: "btn acomer-btn-primary " %>
+                    <%= link_to '<i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_category_path(category), class: "btn acomer-btn-secundary" %>
+                    <%= link_to '<i class="batch-icon batch-icon-bin-alt-2"></i>'.html_safe, category, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn acomer-btn-tertiary" %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
+<% end %>
+
+</div>

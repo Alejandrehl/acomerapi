@@ -1,0 +1,104 @@
+<h1 class="text-center">Pagos</h1>
+<!-- Totales vendidaso -->
+  <div class="row">
+    <div class="col-md-6 col-lg-6 col-xl-4 mb-5">
+      <div class="card card-tile card-xs bg-secondary tarjeta-3b text-center">
+          <div class="card-body p-4">
+              <div class="tile-left">
+                <i class="batch-icon batch-icon-tag-alt-2 batch-icon-xxl"></i>
+              </div>
+              <div class="tile-right">
+                <div class="tile-number">$<%= @total_sales %></div>
+                <div class="tile-description">Venta total</div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-4 mb-5">
+        <div class="card card-tile card-xs bg-primary tarjeta-3 text-center">
+            <div class="card-body p-4">
+                <div class="tile-left">
+                    <i class="batch-icon batch-icon-spam-alt batch-icon-xxl"></i>
+                </div>
+                <div class="tile-right">
+                    <div class="tile-number"><%= @orders.count %></div>
+                    <div class="tile-description">Ordenes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xl-4 mb-5">
+        <div class="card card-tile card-xs bg-secondary tarjeta-3b text-center">
+            <div class="card-body p-4">
+                <div class="tile-left">
+                    <i class="batch-icon batch-icon-heart-full batch-icon-xxl"></i>
+                </div>
+                <div class="tile-right">
+                    <div class="tile-number"><%= @reviews.count %></div>
+                    <div class="tile-description">Opiniones</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <% if @payment.present? %>
+    <form action="<%= send_mail_path %>" method="GET">
+      <select id="restaurant_bill" name="restaurant_bill">
+          <option value="<%= @restaurant.id%>"><%= @restaurant.name%></option>
+      </select>
+      <em>Para solicitar un retiro de dinero, presione el siguiente boton:</em>
+      <div class="form-actions">
+        <%= submit_tag "Enviar Correo", class: "btn acomer-primary" %>
+      </div>
+    </form>
+  <% else %>
+    <em>Para solicitar un retiro de dinero, por favor ingrese sus datos de transferencia:</em>
+  <% end %>
+<% if @payment.blank? %>
+  <h1 class="text-center">Registra una cuenta para realizar la transferencia</h1>
+  <%= form_with(local: true, url: pagos_payment_path, method: :post, class: "container mt-5 mb-5") do |form| %>
+    <div class="form-group">
+      <%= form.label :business_name, "Razón Social" %>
+      <%= form.text_field :business_name, class: "form-control", placeholder: "Ej: The Citadel S.A"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :business_rut, "Rut de la Empresa" %>
+      <%= form.text_field :business_rut, class: "form-control", placeholder: "Ej: 63.614.898-7", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :business_email, "Correo de la Empresa" %>
+      <%= form.text_field :business_email, class: "form-control",  placeholder: "Ej: ciudadela_adm@gmail.com", required: true, type: "email" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :bank_name, "Nombre del Banco" %>
+      <%= form.text_field :bank_name, class: "form-control", placeholder: "Ej: Banco Estado", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :account_type, "Tipo De Cuenta" %>
+      <%= form.text_field :account_type, class: "form-control", placeholder: "Ej: Cuenta Corriente", required: true%>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :account_number, "Numero De Cuenta" %>
+      <%= form.number_field :account_number, class: "form-control", placeholder: "Ej: 12345678911", required: true%>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :restaurant_id, 'Restaurant o cadena al que pertenece' %>
+      <br>    
+      <%= form.select(:restaurant_id, Restaurant.where("user_id = #{current_user[:id]}").collect {|r| [r.name, r.id] }, {}, {class: "form-control"}) %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Crear", class: "btn acomer-primary" %>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-center"> Para eliminar el metodo de pago e ingresar otro, debes hacer click en el siguiente boton</p>
+  <%= link_to 'Eliminar Metodo de Pago', {controller:"pagos", action: "delete", id: @restaurant.id}, data: { confirm: "¿Seguro desea eliminar el metodo de pago?" }, class: "acomer-btn-tertiary" %>
+<% end %>
+</div>

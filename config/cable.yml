@@ -1,0 +1,12 @@
+development:
+  :adapter: redis
+  :url: redis://localhost:6379/
+
+test:
+  adapter: async
+
+production:
+  adapter: redis
+  url: redis://redistogo:1122747679880caf57f83d31a438dc2e@pearlfish.redistogo.com:9959/ # qa url
+  url: redis://redistogo:46886ce3d97721e50d24b61079f7f816@pearlfish.redistogo.com:10032/ # prod url
+  channel_prefix: acomer_production

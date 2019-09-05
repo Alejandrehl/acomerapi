@@ -1,0 +1,20 @@
+// Place all the styles related to the AdminCookAccounts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.staff-item{
+  strong{
+    margin-top: -40px;
+    display: block;
+  }
+  label{
+    strong{
+      margin-top: 5px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+  .card-body{
+    padding: 0;
+  }
+}

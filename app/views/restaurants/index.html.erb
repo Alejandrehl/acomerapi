@@ -1,0 +1,86 @@
+<div class="container table-responsive pt-5 pb-5">
+<div class="text-left mb-5">
+  <% if current_user.branch_number <= 1%>
+    <h2>Mi Restaurant</h2>
+  <% else %>
+    <h2>Mis Restaurantes</h2>
+    <%= link_to '<i class="batch-icon batch-icon-plus mr-3"></i>Nuevo Restaurant'.html_safe, new_restaurant_path, class: "btn acomer-primary" %>
+  <% end %>
+</div>
+<% if @restaurants.count == 0 %>
+  <div> 
+    <div class="card alert alert-warning text-center">
+      <h4 class="tex-center">
+        Aún no has agregado restaurantes a tu lista.
+      </h4>
+    </div>
+  </div>
+<% else %>
+  <table id="datatable-1" class="table table-datatable table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Logo</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Razón Social</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Administrador</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @restaurants.each do |restaurant| %>
+        <tr>
+          <td>
+            <%= 
+              if restaurant.logo.attached? 
+              then 
+                image_tag restaurant.logo, class: "img-thumbnail" 
+              else 
+                'Sin logo' 
+              end 
+            %>
+          </td>
+          <td>
+            <%= restaurant.name == nil || restaurant.name == '' ?
+                'No se agregó ningun nombre.' : restaurant.name
+             %>
+          </td>
+          <td>
+            <%= 
+              restaurant.description == nil || restaurant.description == '' ?
+                'No se agregó ninguna descripción.' : restaurant.description
+            %>
+          </td>
+          <td>
+            <%= 
+              restaurant.business_name == nil || restaurant.business_name == '' ?
+                'No se agregó razón social.' : restaurant.business_name
+            %>
+          </td>
+          <td>
+            <%= 
+              restaurant.telephone == nil || restaurant.telephone == '' ?
+                'No se agregó teléfono.' : restaurant.telephone
+            %>
+          </td>
+          <td>
+            <%= restaurant.email == nil || restaurant.email == '' ? 
+                'No se agregó ningun correo electrónico' : restaurant.email  
+            %>
+          </td>
+          <% @user = User.find(restaurant.user_id) %>
+          <td><%= @user.name + ' ' + @user.last_name %></td>
+          <td>
+            <%= link_to '<i class="batch-icon batch-icon-eye"></i><br>'.html_safe, restaurant, class: "btn btn-sm btn-outline-primary mb-2" %>
+            <%= link_to '<i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_restaurant_path(restaurant), class: "btn btn-sm acomer-btn-primary-outline mb-2" %>
+            <%= link_to '<i class="batch-icon batch-icon-bin-alt-2"></i>'.html_safe, restaurant, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+</div>
+<% end %>

@@ -1,0 +1,57 @@
+<div class="container pt-5 pb-5">
+<div class="text-center mb-5">
+  <h2>Mis Cartas</h2>
+  <%= link_to 'Nueva Carta'.html_safe, new_menu_path, class: "btn acomer-primary" %>
+</div>
+
+<% if notice %>
+    <div class="alert alert-primary" role="alert">
+        <%= notice %>
+    </div>
+<% end %>
+
+<% if @menus.blank? %>
+    <div>
+        <div class="card alert alert-warning text-center">
+        <h4>
+            Aún no has agregado cartas para tus sucursales.
+        </h4>
+        </div>
+    </div>
+<% else %>
+    <div class="row mb-5 category-page">
+        <% @menus.each do |menu| %>
+            <div class="card-menus col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                <div class="card text-center">
+                    <% if menu.img_url.present?%> 
+                        <a class="foto-producto"  href="/menus/<%= menu.id %>">
+                            <%= image_tag(menu.img_url) %>
+                        </a>
+                    <% else %>
+                        <%= link_to "Agregar Imagen", menu_path(menu), class: "btn acomer-primary btn-sm btn-block" %>
+                        <img class="foto-producto-miss" loading="lazy" src="/img/miss.png">
+                    <% end %>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="/menus/<%= menu.id %>">
+                                <%= menu.name %>
+                            </a>
+                        </h5>
+                        <div class="price-block">
+                            <div>
+                                <label>
+                                    <%= menu.description %>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="btn-cartas">
+                          <%= link_to '<p style="margin-bottom:0px !important;"> </p><i class="batch-icon batch-icon-eye"></i>'.html_safe, menu_path(menu), class: "btn acomer-btn-primary" %>
+                          <%= link_to '<p style="margin-bottom:0px !important;"> </p><i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_menu_path(menu), class: "btn acomer-btn-secundary" %>
+                          <%= link_to '<p style="margin-bottom:0px !important;"> </p><i class="batch-icon batch-icon-bin-alt-2"></i>'.html_safe, menu, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn acomer-btn-tertiary" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+<% end %>

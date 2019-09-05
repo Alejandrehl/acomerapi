@@ -1,0 +1,48 @@
+<div class="container mt-5 mb-5">
+  <div class="text-center mb-5">
+    <h2>Mis Mesas</h2>
+    <%= link_to 'Nueva Mesa', new_table_path, class: "btn acomer-primary" %>
+  </div>
+  <% if @tables.blank? %>
+      <div> 
+        <div class="card alert alert-warning text-center">
+          <h4 class="tex-center">
+            Aun no tienes mesas registradas
+          </h4>
+        </div>
+      </div>
+  <% else %>
+
+    <div class="mt-5 mb-5 text-center">
+      <br>
+        <% if !@branches.blank? %> 
+            <div class="row mb-5 category-page">
+              <% @branches.each do |b| %>
+                <% if b.by_tables == "1" %>
+                  <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                    <div class="card text-center">
+                        <% if b.images.count > 0 %>
+                        <a href="#">
+                          <%= image_tag(b.images.first, class: "card-img-top") %>
+                        </a>
+                        <% else %>
+                          <%= link_to "Agregar Imagen", branch_path(b), class: "btn acomer-primary btn-sm btn-block" %>
+                        <% end %>
+                      <div class="card-body">
+                        <h5 class="card-title">
+                        <a href="#">
+                            <%= b.name %>
+                        </a>
+                        </h5>
+                        <%= link_to 'Ver Mesas', {controller: "tables", action: "branch", id: b.id },  class: "btn acomer-primary" %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>  
+      </div>
+
+  <% end %>
+</div>

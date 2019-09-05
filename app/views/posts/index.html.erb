@@ -1,0 +1,51 @@
+<div class="container table-responsive pt-5 pb-5">
+  <div class="text-center mb-5">
+    <h1>Posts</h1>
+    <%= link_to '<i class="batch-icon batch-icon-plus mr-3"></i>Nuevo Post'.html_safe, new_post_path, class: "btn acomer-primary" %>
+  </div>
+  <% if @posts.count == 0 %>
+  <div> 
+    <div class="card card-warning text-center">
+      <h4 class="tex-center">
+        Aún no has agregado ningún Post a tu lista.
+      </h4>
+    </div>
+  </div>
+<% else %>
+  <table id="datatable-1" class="table table-datatable table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Author</th>
+      <th>Likes</th>
+      <th>User</th>
+      <th>Post category</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= post.author %></td>
+        <td><%= post.likes %></td>
+        <% @usuario = User.find(post.user_id) %>
+        <td><%= @usuario.name %></td>
+        <% @post_category = PostCategory.find(post.post_category_id) %>
+        <td><%= @post_category.name %></td>
+        <td>
+            <%= link_to '<i class="batch-icon batch-icon-eye"></i><br> '.html_safe, post, class: "btn btn-sm btn-outline-primary mb-2" %>
+            <%= link_to '<i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_post_path(post), class: "btn btn-sm acomer-btn-primary-outline mb-2" %>
+            <%= link_to '<i class="batch-icon batch-icon-bin-alt-2"></i> '.html_safe, post, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "btn btn-sm acomer-btn-tertiary mb-2" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+</div>
+<% end %>
+

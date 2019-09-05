@@ -1,0 +1,37 @@
+<div class="container mt-5 mb-5">
+  <div class="text-center mb-5">
+    <h2>Mis Meseros</h2>
+    <%= link_to 'Nuevo Mesero', '/admin_waiter_account/form', class: "btn acomer-primary" %>
+  </div>
+    <div class="mt-5 mb-5 text-center">
+      <h3>Sucursales</h3>
+      <br>
+        <% if !@branches.blank? %> 
+            <div class="row mb-5 category-page">
+              <% @branches.each do |b| %>
+                <% if b.by_tables == "1" %>
+                  <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                    <div class="card text-center">
+                        <% if b.image_paths.present? %>
+                        <a href="/admin_waiter_account/waiterbranch/<%= b.id %>">
+                          <%= image_tag(b.image_paths.first.url, class: "card-img-top") %>
+                        </a>
+                        <% else %>
+                          <%= link_to "Agregar Imagen", branch_path(b), class: "btn acomer-primary btn-sm btn-block" %>
+                        <% end %>
+                      <div class="card-body">
+                        <h5 class="card-title">
+                        <a href="/admin_waiter_account/waiterbranch/<%= b.id %>">
+                            <%= b.name %>
+                        </a>
+                        </h5>
+                        <%= link_to 'Ver Meseros', {controller: "admin_waiter_account", action: "waiterbranch", id: b.id },  class: "btn acomer-primary" %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>  
+      </div>
+</div>

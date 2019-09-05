@@ -1,0 +1,37 @@
+<div class="card-body">
+  <div class="text-center mb-5">
+    <h2>Opiniones</h2>
+  </div>
+  <% if @reviews.blank? %>
+    <div> 
+      <div class="card alert alert-warning text-center">
+        <h4 class="text-center">
+          Tus productos aún no reciben opiniones.
+        </h4>
+      </div>
+    </div>
+  <% else %>
+        <% @reviews.sort.reverse.each do |r| %>
+          <div class="card-body card-review">
+          <div class="tablerev">
+             <div class="review_img"> 
+              <%=  image_tag ("/img/logo.png"), class: "thumb-img" %>
+            </div>
+              <div class="review_text">
+                <h4>
+                  <%= r.user.name %> <%= r.stars %> ⭐
+                </h4>
+                <h5>
+                  <%= r.product.name %> 
+                </h5>
+                <h6>
+                  <%= r.commentary %>
+                </h6>
+                <%# <button class= "btn acomer-primary btn-sm  mb-2"> <i class="batch-icon batch-icon-spam-alt"></i> Reportar </button> %>
+                <%= link_to "Reportar", send_report_email_path(id: r.user_id, review_id: r.id), class: "btn acomer-primary btn-sm  mb-2"%>
+              </div>
+          </div>
+          </div>
+        <% end %>
+  <% end %>
+</div>

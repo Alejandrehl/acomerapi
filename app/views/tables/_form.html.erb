@@ -1,0 +1,133 @@
+<div id="app">
+  <%= form_with(model: table, local: true) do |form| %>
+    <% if table.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(table.errors.count, "error") %> prohibited this table from being saved:</h2>
+
+        <ul>
+        <% table.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="card-body">
+
+    <div class="form-group">
+      <%= form.label :Numero_de_mesa %>
+      <%= form.number_field :number , placeholder: "Numero de la mesa que se esta ingresando. Ej: 12", required: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_field :description , placeholder: "Ingrese una breve descripcion de la mesa o su nombre Ej: Mesa VIP 1", required: true, class: "form-control" %>
+    </div>
+    <br>
+    <div class="form-group">
+      <%= form.label :Estado_de_la_mesa %>
+      <br>
+      <select name="table[state]" class="form-control" required> 
+        <option value="cerrada" selected >Cerrada</option>
+        <option value="abierta">Abierta</option>
+        <option value="pendiente">Pendiente</option> 
+      </select>
+    </div>
+    <br>
+    <% if current_user.has_role? :admin %>
+      <div class="form-group">
+      <%= form.label :branch_id, 'Sucursal' %>
+      <br>  
+      <% @restaurant = Restaurant.where("user_id = #{current_user[:id]}")%>
+        <% if current_user.branch_number != 1%>
+      <select id = "branchs" class="form-control" v-model="id_branch">
+      <% @restaurant.each do |rest| %>
+      <optgroup label="<%= rest.name %>">
+        <% @branch = Branch.where("restaurant_id = #{rest.id}") %>
+        <% @branch.each do |bra| %>
+          <% if bra.by_tables == "1" %>
+            <option value="<%=bra.id%>"><%= bra.name %></option>
+          <% end %>
+        <% end %>
+      </optgroup>
+      <% end %>
+      </select>
+      <%= form.text_field :branch_id, id: "branch_id", type: "hidden" %>
+      <% else %>
+          <div class="form-group">
+            <% @restaurant.each do |rest| %>
+              <% @branch = Branch.where("restaurant_id = #{rest.id}") %>
+              <% @branch.each do |bra| %>
+                <%= form.text_field :branch_id, value: bra.id, :readonly => true, hidden: true %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+    </div>
+    <% elsif current_user.has_role? :branch_leader %>
+      <div class="form-group">
+        <%= form.text_field :branch_id, value: @branch.id, :readonly => true, hidden: true%>
+      </div>
+    <% end %>
+    <br>
+
+    <% if current_user.has_role? :admin %>
+      <div class="form-group">
+        <%= form.label :waiter, "Mesero" %>
+        <br>
+        <% @adminwaiter = AdminWaiterAccount.all %>
+        <select name="waiter" class="form-control">
+          <option v-for="waiter in waiter_list" :value ="waiter.id">{{waiter.name}}</option>
+        </select>
+      </div>
+    <% elsif current_user.has_role? :branch_leader%>
+      <div class="form-group">
+        <%= form.label :waiter, "Mesero" %>
+        <br>
+        <% @adminwaiter = AdminWaiterAccount.where(branch_id: @branch.id) %>
+          <select name="waiter" class="form-control">
+            <% @adminwaiter.each do |bra| %>
+              <%@userw = User.find(bra.id_waiter)%>
+              <option value="<%=bra.id_waiter%>"><%= @userw.name %></option>
+            <% end %>
+          </select>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= form.submit "Crear", class: "btn acomer-primary" %>
+      <%= link_to 'Atras', admin_tables_path, class: "btn acomer-primary" %>
+    </div>
+
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function setBranch() {
+    document.getElementById("branch_id").value = $("#branchs").val()
+  }
+  setInterval(setBranch, 500)
+</script>
+
+<script>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    id_branch: "",
+    waiter_list: []
+  },
+  watch: {
+    // Cuando se seleccionan un branch se ejecuta la siguente funcion, que carga las mesas de ese branch de forma dinamica
+    id_branch: function () {
+      var self = this
+      axios.get('/admin_waiter_account/waiterbranch/'+self.id_branch+'.json')
+      .then( function (json) {
+        self.waiter_list = json.data.waiters
+      })
+    }
+  }
+})
+
+</script>

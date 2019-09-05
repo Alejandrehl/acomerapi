@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<head>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script type="text/javascript" src="/assets/main.js"></script>
+<link rel="stylesheet" href="/assets/fonts/batch-icons/css/batch-icons.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head> 
+
+<body class="landing">
+<nav class="navbar-desktop">
+	<% if !current_user %>
+	<div class="navbar-item">
+		<a href="/users/sign_in">Iniciar sesión</a>
+	</div>
+	<div class="navbar-item">
+		<a href="/users/sign_up">Registrarse</a>
+	</div>
+	<% else %>
+		<div class="navbar-item">
+			<%= link_to "Dashboard", admin_index_path %>
+		</div>
+		<div class="navbar-item">
+			<%= link_to 'Cerrar sesión', destroy_user_session_path, method: :get %>
+		</div>
+	<% end %>
+	<div class="navbar-item">
+		<a href="#que-es">Que es acomer</a>
+	</div>
+	<div class="navbar-item">
+		<a href="#como-funciona">Como funciona</a>
+	</div>
+	<div class="navbar-item">
+		<a href="#cotizador">Cotiza</a>
+	</div>
+	<div class="navbar-item">
+		<a href="#faq">FAQ</a>
+	</div>
+</nav>
+
+<nav class="navbar-mobile">
+	<button id="menu-boton-toggle" class="menu-boton-toggle"><i class="batch-icon batch-icon-menu-alt"></i></button>
+
+	<div class="menu-toggle" id="menu-toggle">
+		<div class="navbar-item">
+			<a href="/users/sign_in">Iniciar sesión</a>
+		</div>
+		<div class="navbar-item">
+			<a href="/users/sign_up">Registrarse</a>
+		</div>
+		<div class="navbar-item">
+			<a href="#que-es">Que es acomer</a>
+		</div>
+		<div class="navbar-item">
+			<a href="#como-funciona">Como funciona</a>
+		</div>
+		<div class="navbar-item">
+			<a href="#cotizador">Cotiza</a>
+		</div>
+		<div class="navbar-item">
+		<a href="#faq">FAQ</a>
+		</div>
+	</div>
+</nav>
+
+	<section class="banner">
+			<img src="/img/cocktail.jpg" class="bg" loading="lazy">
+		<div class="banner-item">
+			<img src="/img/logo.png" loading="lazy">
+			<p>El menú a un sólo click</p>
+			<h1>Una nueva experiencia sin filas</h1>
+			<div class="banner-botones">
+				<a href="/users/sign_in" class="acomer-btn-primary">Iniciar sesión</a>
+				<a href="/users/sign_up" class="acomer-btn-primary-outline">Registrarse</a>
+			</div>
+		</div>
+		<div class="banner-item">
+			<form class="form-banner">
+			<label style="font-size:20px;margin-bottom:20px;font-weight: 500;">Contáctanos</label>
+				<label>Nombre</label>
+					<input type="text">
+
+					<label>Email</label>
+					<input type="mail">
+
+					<label>Teléfono</label>
+					<input type="tel">
+
+					<label>Mensaje</label>
+					<textarea>
+					</textarea>
+					<a class="btn acomer-btn-primary" type="submit">Enviar</a>
+			</form>
+		</div>
+	</section>
+
+	<section class="main-content">
+		<div class="tab-01" id="que-es">
+			<h2>¿Qué es acomer?</h2>
+
+
+			<div class="tab">
+				<button class="tablinks active" onclick="openCity(event, 'smartphone01')" id="defaultOpen">
+					<svg version="1.1" class="icon" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						viewBox="0 0 493.646 493.646" xml:space="preserve">
+						<path id="cup-3" d="M370.252,268.91c0.955,0.023,1.822,0.055,3.188,0.055
+							c18.579,0,64.606-3.321,90.837-34.077c33.589-39.395,39.137-87.95,12.657-110.546c-8.533-7.278-19.58-11.121-31.941-11.121
+							c-10.014,0-20.682,2.675-31.272,7.403c-24.095-42.878-173.159-45.248-205.151-45.248C173.736,75.377,0.032,78.154,0,132.968v0.009
+							c0,0,0,0,0,0.009v0.009c0,64.007,27.463,121.413,70.681,160.831c-40.101,10.706-70.533,27.85-70.533,54.436
+							c0,55.257,131.104,70.007,208.569,70.007c77.461,0,208.551-14.75,208.551-70.007c0-26.586-30.434-43.73-70.533-54.436
+							C355.17,286.137,363.112,277.899,370.252,268.91z M455.103,149.919c10.244,8.722,5.401,37.591-16.397,63.158
+							c-11.379,13.32-30.617,18.671-45.814,20.829c12.033-23.237,20.008-48.997,23.047-76.299c10.979-7.32,21.504-10.765,29.055-10.765
+							C449.309,146.842,452.703,147.875,455.103,149.919z M208.568,108.997c95.187,0,153.742,14.229,171.139,23.989
+							c-17.396,9.751-75.951,23.98-171.139,23.98c-95.209,0-153.759-14.229-171.157-23.98C54.81,123.226,113.359,108.997,208.568,108.997z
+							M383.697,347.897c-3.215,10.465-59.979,36.751-174.98,36.751c-115.006,0-171.785-26.286-174.986-36.037
+							c1.905-6.231,22.951-18.039,63.809-26.609c-0.706,2.094-1.186,4.275-1.186,6.656c0,30.691,61.096,37.13,112.363,37.13
+							c51.244,0,112.34-6.439,112.34-37.13c0-2.394-0.489-4.594-1.195-6.707C360.733,330.449,381.793,342.095,383.697,347.897z"/>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+					</button>
+
+				<button class="tablinks" onclick="openCity(event, 'smartphone02')">
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						viewBox="0 0 495.311 495.311" xml:space="preserve">
+						<g id="cutlery-6">
+						<path d="M68.824,87.993c-2.918,0-5.289,2.361-5.289,5.279v65.242c0,2.918-2.38,5.311-5.329,5.311
+							c-2.94,0-5.312-2.394-5.312-5.311V93.272c0-2.918-2.38-5.279-5.297-5.279h-0.064c-2.926,0-5.297,2.361-5.297,5.279v65.242
+							c0,2.918-2.372,5.311-5.312,5.311c-2.949,0-5.32-2.394-5.32-5.311V93.272c0-2.918-2.376-5.279-5.298-5.279h-0.063
+							c-2.927,0-5.284,2.361-5.284,5.279v65.242c0,2.918-2.385,5.311-5.32,5.311c-2.954,0-5.32-2.394-5.32-5.311V93.272
+							c0-2.918-2.38-5.279-5.289-5.279C2.244,87.993,0,90.241,0,92.995c0,16.508,0,68.16,0,70.362c0,21.509,7.209,33.189,17.955,38.663
+							c8.684,4.405,13.777,13.703,12.821,23.407L15.292,383.479c-0.573,6.107,1.416,12.179,5.53,16.698
+							c4.132,4.569,9.976,7.146,16.102,7.146c6.14,0,11.979-2.576,16.089-7.146c4.114-4.52,6.126-10.591,5.534-16.698L43.068,225.427
+							c-0.946-9.704,4.146-19.002,12.821-23.407c10.754-5.475,17.955-17.154,17.955-38.663c0-2.202,0-53.854,0-70.362
+							C73.844,90.241,71.601,87.993,68.824,87.993z"/>
+						<path   d="M481.045,238.79c1.998,0,3.628-1.62,3.628-3.632V94.355c0-3.513-2.854-6.362-6.367-6.362
+							c-3.058,0-5.726,2.007-6.558,4.924l-22.06,76.936c-6.449,22.482-2.49,46.682,10.777,65.957c1.288,1.861,3.409,2.98,5.68,2.98
+							l-14.168,144.671c-0.596,6.108,1.411,12.184,5.535,16.717c4.105,4.552,9.954,7.146,16.084,7.146c6.13,0,11.97-2.594,16.084-7.146
+							c4.119-4.533,6.121-10.608,5.529-16.717L481.045,238.79z"/>
+						<path   d="M255.667,82.663c-91.116,0-164.992,73.877-164.992,165.002c0,91.108,73.876,164.983,164.992,164.983
+							c91.126,0,164.993-73.876,164.993-164.983C420.66,156.54,346.793,82.663,255.667,82.663z M255.667,365.452
+							c-64.933,0-117.769-52.836-117.769-117.787c0-64.951,52.836-117.805,117.769-117.805c64.951,0,117.787,52.854,117.787,117.805
+							C373.454,312.616,320.618,365.452,255.667,365.452z"/>
+						<path   d="M255.667,146.449c-55.789,0-101.184,45.399-101.184,101.216
+							c0,55.799,45.395,101.201,101.184,101.201c55.799,0,101.202-45.402,101.202-101.201
+							C356.869,191.848,311.466,146.449,255.667,146.449z"/>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+					</button>
+
+				<button class="tablinks" onclick="openCity(event, 'smartphone03')">
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						viewBox="0 0 303.324 303.324" xml:space="preserve">
+						<g>
+							<g id="Layer_5_6_">
+								<g>
+									<path d="M27.232,215.067c-21.559,0-21.559,13.049-21.559,19.823c0,45.729,47.753,49.927,106.66,49.927h78.656
+										c58.907,0,106.66-7.98,106.66-49.927c0-6.774-2.065-19.823-21.355-19.823H27.232z"/>
+									<g>
+										<path d="M303.324,180.028c0,7.489-6.127,13.616-13.616,13.616H13.616C6.127,193.644,0,187.517,0,180.028v-10.21
+											c0-7.489,6.127-13.616,13.616-13.616h276.092c7.489,0,13.616,6.127,13.616,13.616L303.324,180.028L303.324,180.028z"/>
+									</g>
+									<path d="M156.95,18.507h-10.576c-58.906,0-140.7,36.407-140.7,95.314c0,6.774,2.065,19.822,21.354,19.822h249.064
+										c21.559,0,21.559-13.048,21.559-19.822C297.65,54.914,215.856,18.507,156.95,18.507z M87.753,94.08
+										c-5.629,9.388-15.324,13.92-21.655,10.124c-6.331-3.797-6.9-14.483-1.271-23.871c5.629-9.387,15.324-13.92,21.655-10.123
+										C92.812,74.006,93.382,84.693,87.753,94.08z M151.662,107.903c-7.05,0-12.766-9.266-12.766-20.696s5.716-20.696,12.766-20.696
+										s12.766,9.266,12.766,20.696S158.712,107.903,151.662,107.903z M237.226,104.204c-6.331,3.796-16.026-0.736-21.655-10.124
+										c-5.629-9.387-5.06-20.074,1.271-23.87c6.331-3.797,16.026,0.736,21.655,10.123C244.127,89.721,243.558,100.407,237.226,104.204z
+										"/>
+								</g>
+							</g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+				</button>
+				
+			</div>
+
+			<div id="smartphone01" class="tabcontent">
+				<img src="/img/smartphone01.png" loading="lazy">
+				<div class="tab-text">
+					<h4>Somos el menú digital de tu restaurant favorito. Ahora no tienes 
+					que esperar para hacer tu pedido</h4>
+					<p>Eliminamos el tiempo de espera al momento de pedir
+					sientate, ingresa al menú digital, pide lo que más te guste, y listo a disfrutar</p>
+				</div>
+			</div>
+
+			<div id="smartphone02" class="tabcontent" style="display:none;">
+				<img src="/img/smartphone02.png" loading="lazy">
+				<div class="tab-text">
+					<h4>¿Te gustaría saber que tienen de menu para el almuerzo?</h4>
+					<p>Busca en nuestra Webapp el local, revisa el menu y ACOMER.</p> 
+				</div>
+				
+			</div>
+
+			<div id="smartphone03" class="tabcontent" style="display:none;">
+				<img src="/img/smartphone03.png" loading="lazy">
+				<div class="tab-text">
+					<h4>¿Preocupado porque debes de hacer una fila muy larga para pedir y luego otra para retirar?</h4>
+					<p>Ya no debes hacer más filas, sientate, elige del menú y te avisaremos cuando este listo para que retires</p> 
+				</div>
+				
+			</div>
+
+
+
+		</div>
+		
+		<div class="call-to-action">
+			<img src="/img/cta.jpg" loading="lazy">
+			<h2>¿Quieres acomer en tu restaurante?</h2>
+			<a href="#cotizador" class="acomer-btn-primary">Cotiza aquí</a>
+		</div>
+
+
+		<div class="tab-02" id="como-funciona">
+			<h2>Beneficios</h2>
+
+
+			<div class="tab">
+				<button class="tablinks02 active" onclick="openCity02(event, '01')" id="defaultOpen02">
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						width="35px" height="35px" viewBox="0 0 35 35" xml:space="preserve">
+						<g>
+							<path d="M25.302,0H9.698c-1.3,0-2.364,1.063-2.364,2.364v30.271C7.334,33.936,8.398,35,9.698,35h15.604
+								c1.3,0,2.364-1.062,2.364-2.364V2.364C27.666,1.063,26.602,0,25.302,0z M15.004,1.704h4.992c0.158,0,0.286,0.128,0.286,0.287
+								c0,0.158-0.128,0.286-0.286,0.286h-4.992c-0.158,0-0.286-0.128-0.286-0.286C14.718,1.832,14.846,1.704,15.004,1.704z M17.5,33.818
+								c-0.653,0-1.182-0.529-1.182-1.183s0.529-1.182,1.182-1.182s1.182,0.528,1.182,1.182S18.153,33.818,17.5,33.818z M26.021,30.625
+								H8.979V3.749h17.042V30.625z"/>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+				</button>
+
+				<button class="tablinks02" onclick="openCity02(event, '02')">
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						viewBox="0 0 33.994 33.994" style="enable-background:new 0 0 33.994 33.994;  fill:#FBE700;" xml:space="preserve">
+						<g>
+							<path d="M27.125,0H6.867C5.59,0,4.562,1.033,4.562,2.309v29.377c0,1.272,1.028,2.308,2.305,2.308h20.258
+								c1.273,0,2.306-1.035,2.306-2.308V2.309C29.433,1.033,28.399,0,27.125,0z M16.997,33.129c-0.758,0-1.371-0.613-1.371-1.37
+								c0-0.758,0.613-1.372,1.371-1.372c0.756,0,1.371,0.614,1.371,1.372C18.368,32.516,17.753,33.129,16.997,33.129z M27.098,29.186
+								H6.896V2.774h20.202V29.186z"/>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+				</button>
+
+				<button class="tablinks02" onclick="openCity02(event, '03')">
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						width="97.385px" height="97.385px" viewBox="0 0 97.385 97.385" style="enable-background:new 0 0 97.385 97.385; fill:#FBE700;"
+						xml:space="preserve">
+						<g>
+							<g>
+								<path d="M97.265,71.261c-0.093-0.108-0.23-0.172-0.374-0.172H0.494c-0.144,0-0.28,0.063-0.374,0.172
+									c-0.094,0.108-0.136,0.253-0.115,0.396c0.014,0.09,1.468,9.016,12.753,9.016h71.869c11.284,0,12.738-8.926,12.753-9.016
+									C97.4,71.514,97.358,71.369,97.265,71.261z M55.942,77.547h-14.5v-3.334h14.5V77.547z"/>
+								<path d="M10.507,67.619h76.37c1.104,0,2-0.896,2-2V18.713c0-1.104-0.896-2-2-2h-76.37c-1.104,0-2,0.896-2,2v46.906
+									C8.507,66.723,9.403,67.619,10.507,67.619z M15.507,23.713h66.37v36.906h-66.37V23.713z"/>
+							</g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+				</button>
+			</div>
+
+			<div id="01" class="tabcontent02">
+				<img src="/img/tablet01.png" loading="lazy">
+				<div class="tab-text">
+					<h4>Tus clientes ya no tienen que esperar para ser atendidos.
+					Desde el menú digital seleccionan lo que deseen, eligen el método de pago y listo.</h4>
+					<p>Aumenta la rotación de las mesas y disminuye la pérdida de comensales en la fila</p>
+					
+				</div>
+			</div>
+
+			<div id="02" class="tabcontent02" style="display:none;">
+				<img src="/img/tablet02.png" loading="lazy">
+				<div class="tab-text">
+					<h4>¿Te preocupa la poca rotación de tus productos?</h4>
+					<p>El menú digital potencia tu carta al darle 100% de visibilidad</p> 
+					
+				</div>
+			</div>
+
+			<div id="03" class="tabcontent02" style="display:none;">
+				<img src="/img/tablet03.png" loading="lazy">
+				<div class="tab-text">
+					<h4>¿Te preocupa la molestia que se genera en tus clientes por la espera al tomar pedidos?</h4>
+					<p>	Disminuimos la fricción con el cliente al mejorar los tiempos de atención, aumentando fidelización.</p> 
+				</div>
+			</div>
+
+
+		</div>
+	</section>
+
+	<section class="cotizador" id="cotizador">
+		<form class="show" id="secondStep" style="display:none;">
+		<div class="form-cotizador">
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+					<span class="sr-only">0% Complete</span>
+				</div>
+			</div>
+			<h2>Cotiza aquí</h2>
+			<label><b>Nombre</b></label>
+				<input type="text">
+
+			<label><b>Teléfono</b></label>
+				<input type="tel">
+
+			<label><b>Email</b></label>
+				<input type="text">
+			<label><b>¿Con o sin mesas?</b></label>
+			<label><input type="checkbox" id="checkMesas" onclick="showNumeroDeMesas()"> Con mesas</label>
+			<label><input type="checkbox"> Al paso</label>
+
+			<div class="numero-de-mesas" id="numeroDeMesas">
+				<label><b>Número de mesas</b></label>
+					<input type="number">
+			</div>
+
+			<a id="next-step" class="acomer-btn-primary" onclick="showNextStep()">Siguiente</a>
+			</div>
+		</form>
+
+		<form class="form-cotizador form-products" id="firstStep" style="display:none;">
+		  <div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:45%">
+					<span class="sr-only">50% Complete</span>
+				</div>
+			</div>
+			<h2>Cotiza aquí</h2>
+			<label><b>Arma tu pack</b></label>
+			  <div class="item-cotizador">
+					<div class="icon-item-cotizador">
+						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							width="29.938px" height="29.938px" viewBox="0 0 29.938 29.938" style="enable-background:new 0 0 29.938 29.938; fill:#FBE700;"
+							xml:space="preserve">
+							<g>
+								<path d="M7.129,15.683h1.427v1.427h1.426v1.426H2.853v-1.426h1.426v-2.853h2.853v1.426H7.129z M25.664,28.513h1.424v-1.426h-1.424
+									V28.513z M8.555,15.683h1.426v-1.426H8.555V15.683z M28.512,28.513h1.427v-1.426h-1.427V28.513z M11.408,29.938h2.85v-1.426h-2.85
+									V29.938z M24.237,29.938v-1.426h-1.427v1.426H24.237z M18.535,29.938h1.426v-2.852h-1.426V29.938z M7.129,11.406v1.426h4.277
+									v-1.426H7.129z M5.705,12.831v-1.426H2.852v2.852h1.426v-1.426H5.705z M9.981,9.979H0.002V0.001h9.979V9.979z M8.555,1.427H1.426
+									v7.127h7.129V1.427z M2.852,27.087h4.276V22.81H2.852V27.087z M17.108,25.66v1.427h1.428V25.66H17.108z M7.129,2.853H2.853v4.275
+									h4.276V2.853z M29.938,0.001v9.979h-9.979V0.001H29.938z M28.512,1.427h-7.127v7.127h7.127V1.427z M0,19.957h9.98v9.979H0V19.957z
+									M1.427,28.513h7.129v-7.129H1.427V28.513z M1.427,11.406H0v7.129h1.427V11.406z M19.959,18.533v1.424h1.426v-1.424H19.959z
+									M15.682,24.236V22.81h-1.425v1.427h-2.85v2.853h2.85v1.426h1.425v-2.853h1.427v-1.426H15.682L15.682,24.236z M11.408,5.704h2.85
+									V4.276h-2.85V5.704z M22.811,17.109h2.854v1.426h1.425v-4.276h-1.425v-2.853h-1.428v4.277h-4.274v1.427h1.426v1.426h1.426v-1.426
+									H22.811z M24.237,21.384h-1.427v-1.427h-1.426v2.853h-4.276v1.427h2.854v2.853h1.426v1.426h1.426v-2.853h5.701v-1.426h-4.276
+									v-2.853H24.237z M24.237,21.384h1.428v-2.851h-1.428V21.384z M12.832,21.384v-1.427h1.424v-1.424h1.425v-1.426h1.427v-2.853h4.276
+									v-2.853h-1.426v1.426h-1.426V7.125h-1.426V4.272h1.426V0h-1.426v2.852h-1.426V0h-4.276v2.852h1.426V1.426h1.424v2.85h1.426v4.277
+									h1.426v1.426h-1.426v2.852h-1.426V9.979h-1.424V8.554h-1.426v2.852h1.426v1.426h-1.426v4.278h1.426v-2.853h1.424v2.853h-1.424
+									v1.426h-1.426v4.274h2.85v-1.426H12.832z M28.512,22.81v-1.426h-2.85v1.426H28.512z M27.086,2.853h-4.275v4.275h4.275V2.853z
+									M15.682,21.384h2.854v-1.427h-1.428v-1.424h-1.427V21.384z M18.535,18.533v-1.426h-1.428v1.426H18.535z M27.086,12.831h2.853
+									v-1.426h-2.853V12.831z M28.512,24.236h1.427V22.81h-1.427V24.236z M28.512,15.683h1.427v-1.426h-1.427V15.683z M15.682,8.554
+									h-1.425v1.426h1.425V8.554z"/>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+						</svg>
+					</div>
+					<div class="button-item-cotizador">
+						<p><label><b>Código QR</b></label> $1.000</p>
+					</div>
+					<div class="contador-cotizacion">
+					<label>Cantidad</label>
+						<input type="number" id="txt_campo_1" class="monto" onkeyup="sumar();" >
+					</div>
+					<p>Bacon ipsum dolor amet short ribs brisket venison rump drumstick 
+					pig sausage prosciutto chicken spare ribs salami</p>
+					
+				</div>
+
+				<div class="item-cotizador">
+					<div class="icon-item-cotizador">
+						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							width="35px" height="35px" viewBox="0 0 35 35" xml:space="preserve">
+							<g>
+								<path d="M25.302,0H9.698c-1.3,0-2.364,1.063-2.364,2.364v30.271C7.334,33.936,8.398,35,9.698,35h15.604
+									c1.3,0,2.364-1.062,2.364-2.364V2.364C27.666,1.063,26.602,0,25.302,0z M15.004,1.704h4.992c0.158,0,0.286,0.128,0.286,0.287
+									c0,0.158-0.128,0.286-0.286,0.286h-4.992c-0.158,0-0.286-0.128-0.286-0.286C14.718,1.832,14.846,1.704,15.004,1.704z M17.5,33.818
+									c-0.653,0-1.182-0.529-1.182-1.183s0.529-1.182,1.182-1.182s1.182,0.528,1.182,1.182S18.153,33.818,17.5,33.818z M26.021,30.625
+									H8.979V3.749h17.042V30.625z"/>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+						</svg>
+					</div>
+					<div class="button-item-cotizador">
+						<p><label><b>Soporte menú</b></label> $2.000</p>
+					</div>
+					<div class="contador-cotizacion">
+						<label>Cantidad</label>
+						<input type="number" id="txt_campo_2" class="monto" onkeyup="sumar();" >
+					</div>
+					<p>Bacon ipsum dolor amet short ribs brisket venison rump drumstick 
+					pig sausage prosciutto chicken spare ribs salami</p>
+					
+				</div>
+
+				<div class="item-cotizador">
+					<div class="icon-item-cotizador">
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						viewBox="0 0 33.994 33.994" style="enable-background:new 0 0 33.994 33.994;  fill:#FBE700;" xml:space="preserve">
+						<g>
+							<path d="M27.125,0H6.867C5.59,0,4.562,1.033,4.562,2.309v29.377c0,1.272,1.028,2.308,2.305,2.308h20.258
+								c1.273,0,2.306-1.035,2.306-2.308V2.309C29.433,1.033,28.399,0,27.125,0z M16.997,33.129c-0.758,0-1.371-0.613-1.371-1.37
+								c0-0.758,0.613-1.372,1.371-1.372c0.756,0,1.371,0.614,1.371,1.372C18.368,32.516,17.753,33.129,16.997,33.129z M27.098,29.186
+								H6.896V2.774h20.202V29.186z"/>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+							<g>
+							</g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+						<g>
+						</g>
+					</svg>
+					</div>
+					<div class="button-item-cotizador">
+						<p><label><b>Tablet</b></label> $19.000</p>
+					</div>
+					<div class="contador-cotizacion">
+						<label>Cantidad</label>
+						<input type="number" id="txt_campo_3" class="monto" onkeyup="sumar();" >
+					</div>
+					<p>Bacon ipsum dolor amet short ribs brisket venison rump drumstick 
+					pig sausage prosciutto chicken spare ribs salami</p>
+					
+				</div>
+
+				<div class="total-cotizador">
+				<a type="submit" class="acomer-btn-primary"> Enviar</a>
+					<label><b>Total</b>:</label>
+					<p>$<span id="total"></span></p>
+					
+				</div>
+		</form>
+	</section>
+
+	<section class="faq-landing" id="faq">
+		<div class="container">
+				<h2>Preguntas frecuentes</h2>
+				<br>
+				<div class="panel-group" id="accordion">
+					<div class="col-lg-6 item-faq">
+						<h3>Para tu restaurant</h3>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">¿Cuál es el costo?</a>
+								</h4>
+							</div>
+							
+							<div id="collapse1" class="panel-collapse collapse in">
+								<div class="panel-body">Va a depender de tus necesidades, ingresa <a href="#cotizador">Aquí</a> para ver el que más te acomode.</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">¿Qué implementación requiere ACOMER?</a>
+								</h4>
+							</div>
+
+							<div id="collapse2" class="panel-collapse collapse">
+								<div class="panel-body">Sólo debes tener un tablet o celular para recibir las notificaciones y debes contar con wifi, ya sea dentro del local o internet en tu dispositivo movil.</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">¿Cuál es el horario del servicio técnico?</a>
+								</h4>
+							</div>
+
+							<div id="collapse3" class="panel-collapse collapse">
+								<div class="panel-body">De Lunes a Domingo de 09:00 a 23:00.</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6 item-faq">
+						<h3>Para tus clientes</h3>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">¿Necesito registrarme?</a>
+								</h4>
+							</div>
+
+							<div id="collapse4" class="panel-collapse collapse in">
+								<div class="panel-body">Debes registrarte para acceder a una experiencia más completa.</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse5">¿Tiene costo?</a>
+								</h4>
+							</div>
+
+							<div id="collapse5" class="panel-collapse collapse">
+								<div class="panel-body">No tiene costo, disfruta sin límites.</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse6">¿Qué medios de pago pues utilizar?</a>
+								</h4>
+							</div>
+
+							<div id="collapse6" class="panel-collapse collapse">
+								<div class="panel-body">En principio podrás utilizar Onepay para tarjetas de débito/crédito y Oneclick para crédito, 
+								ambos servicios operados por transbank.</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+		</div>
+	</section>
+
+	<script>
+		var barsNavIcon = document.getElementById("menu-boton-toggle")
+
+		barsNavIcon.onclick = function() {
+				menuToggle();
+		};
+
+		function menuToggle() {
+			document.getElementById("menu-toggle").classList.toggle("show");
+		}
+	</script>
+</body>
+</html>

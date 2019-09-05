@@ -1,0 +1,67 @@
+class ChargeController < ApplicationController
+
+  # Change it to https://api.qvo.cl on production
+  API_URL = 'https://playground.qvo.cl'
+
+  # Replace with your production api token on production
+  API_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb21tZXJjZV9pZCI6ImNvbV9xdFM0Z3JvbV9BZk5oQXo2REFvMnl3IiwiYXBpX3Rva2VuIjp0cnVlfQ.sM047UoHi52rXNmE7nJModcudpZ1GoZ_71FV2oVpCxU'
+
+  def pay
+    amount = params[:amount]
+
+    init_transaction_response = init_transaction(amount)
+    if init_transaction_response[:error].present?
+      redirect_to charge_path, notice: init_transaction_response[:error][:message]
+    else
+      redirect_to init_transaction_response[:redirect_url]
+    end
+  end
+
+  def return_after_form
+    transaction_id = params['transaction_id']
+    @response = get_transaction(transaction_id)
+    if @response[:status] == 'successful'
+      render :success
+    else
+      redirect_to charge_path, notice: @response[:status]
+    end
+  end
+
+  private
+  def init_transaction(amount)
+    init_transaction_url = "#{API_URL}/webpay_plus/charge"
+
+    # Double check if you are using your API TOKEN correctly. Otherwise this request will throw an authentication_error
+    response = HTTParty.post(
+      init_transaction_url,
+      { headers:
+        {
+          "Authorization" => "Bearer #{API_TOKEN}",
+          'Content-Type' => 'application/json'
+        },
+        body: {
+          'return_url' => charge_return_after_form_url,
+          'amount' => amount
+        }.to_json
+      },
+    ).body
+
+    return JSON.parse(response, symbolize_names: true)
+  end
+
+  def get_transaction(transaction_id)
+    get_transaction_url = "#{API_URL}/transactions/#{transaction_id}"
+
+    response = HTTParty.get(
+      get_transaction_url,
+      { headers:
+        {
+          "Authorization" => "Bearer #{API_TOKEN}",
+          'Content-Type' => 'application/json'
+        }
+      },
+    ).body
+
+    return JSON.parse(response, symbolize_names: true)
+  end
+end

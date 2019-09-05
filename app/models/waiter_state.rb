@@ -1,0 +1,2 @@
+class WaiterState < ApplicationRecord
+end

@@ -1,0 +1,99 @@
+<p id="notice"><%= notice %></p>
+<div class="tarjeta-datos">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+
+      <p class="logo-restaurant">
+        <% if @waiter.profile.attached? %>
+          <%= image_tag(@waiter.profile) %>
+        <% else %>
+          <img src="/img/not-avatar.jpg" width="auto" height="auto" alt="Acomer">
+        <% end %>
+      </p>
+      <% @waiteraccount = AdminWaiterAccount.find_by(id_waiter: @waiter.id) %>
+      <p>
+        <strong>Nombre:</strong>
+        <%= @waiter.name %>
+      </p>
+
+      <!---<p>
+        <strong>Rut:</strong>
+        <%= @waiter.rut %>
+      </p>--->
+
+      <p>
+        <strong>Correo:</strong>
+        <%= @waiter.email %>
+      </p>
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+        <p>
+          <h3>Mesas Asignadas</h3>
+        </p>
+      <%@waitertable = WaiterTable.where(user_id: @waiter.id)%>
+      <% if @waitertable %>
+        <table>
+          <thead>
+            <tr>
+              <th>Sucursal</th>
+              <th>Descripcion</th>
+              <th>Numero</th>
+              <th></th>
+            <tr>
+          </thead>
+          <tbody>
+            <% @waitertable.each do |wt| %>
+              <tr>
+                <% @table = Table.find(wt.table_id) %>
+                <td><%= Branch.find(@table.branch_id).name%></td>
+                <td><%= @table.description %></td>
+                <td><%= @table.number %></td>
+                <td><%= link_to "Eliminar", {controller:"admin_waiter_account", action: "deletetable", id: wt.id, waiter: @waiter.id}, data: { confirm: "¿Está Seguro?" } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+      <p>
+        <h3>Asignar Mesas</h3>
+        <% @tables = Table.where(branch_id: @waiteraccount.branch_id ) %>
+      </p>
+
+      <p>
+        <% if !@tables.blank?%>
+          <form action="<%= admin_waiter_account_asigntables_path %>" method="get" >
+            <select class="form-control" multiple="multiple" id="tables">
+              <% @tables.each do |t| %>
+                <% if t.assign == false%>
+                  <option value="<%=t.id%>"><%=t.number%> | <%=t.description%></option>
+                <% end %>
+              <% end %>
+            </select>
+            <input type="hidden" id="tables_id" name="tables">
+            <input type="hidden" value="<%=@waiter.id%>" name="waiter">
+            <button type="submit" class="btn acomer-primary btn-sm waves-effect waves-light">Asignar</button>
+          </form>
+        <% else %>
+          <p>
+            No tienes mesas en la la sucursal en la que esta asignado este mesero. 
+            Crea una Mesa <strong><%= link_to 'Aqui', admin_waiter_account_form_path %></strong>
+          </p>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+        <%= link_to 'Eliminar Mesero', {controller:"admin_waiter_account", action: "delete", id: @waiter.id}, data: { confirm: "¿Seguro desea eliminar a #{@waiter.name} de su equipo de meseros?" }, class: "acomer-btn-tertiary" %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // setea los datos que se han seleccionado en el select
+  $("#tables").change(function() {
+   document.getElementById("tables_id").value = $("#tables").val()
+  })
+
+</script>

@@ -1,0 +1,38 @@
+<div class="container mt-5 mb-5 text-center">
+    <% if current_user.has_role? :branch_leader %>
+      <%= link_to 'Nuevo Cocinero', '/admin_cook_accounts/form', class: "btn acomer-primary" %>	  
+    <% end %>
+    <h1>Cocineros</h1>
+    <% if current_user.has_role? :admin %>
+      <%= link_to "Volver", admin_cooks_path, class: "btn acomer-btn-primary-outline" %>
+    <% end %>
+
+    <div class="row mt-5 mb-5 category-page staff-item" style="float:none !important;">
+        <% @cooks.each do |cook| %>
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="price-block ">
+                            <div>
+                                <p class="logo-restaurant">
+                                    <% if cook.profile.attached? %>
+                                    <%= image_tag(cook.profile, width:'100%') %>
+                                    <% else %>
+                                    <img src="/img/not-avatar.jpg" width="100%" alt="Acomer">
+                                    <% end %>
+                                </p>
+                                <strong>
+                                    <%= cook.name %><%= cook.last_name %>
+                                </strong>
+                                <label class="mt-5">
+                                    <strong><%= cook.email %></strong>
+                                </label>
+                            </div>
+                        </div>
+                        <%= link_to 'Ver Cocinero', {controller: "admin_cook_accounts" ,action: "show" , id: cook.id}, class: "btn acomer-primary" %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

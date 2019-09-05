@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+<div class="tarjeta-datos">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+  <p>
+    <strong>Name:</strong>
+    <%= @menu.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @menu.description %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <% @menu.categories.each do |cat|%>
+      <%= cat.name %>
+    <% end %>
+  </p>
+  </div>
+  <div class="col-12 col-md-12 col-lg-4 datos-4">
+  <p>
+    <strong>Branch:</strong>
+    <%= @menu.branch.name %>
+  </p>
+
+  <p class="fotos_restaurant">
+    <strong>Fotos:</strong>
+  <%if @menu.img_url.present?%> 
+    <%= image_tag(@menu.img_url) %>
+  <% end %>
+  </p>
+
+    </div>
+  </div>
+  <%= link_to 'Editar', edit_menu_path(@menu), class: "btn acomer-primary"%>
+  <%= link_to 'Volver a Cartas', admin_menus_path, class: "btn acomer-primary"%>
+</div>

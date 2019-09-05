@@ -1,0 +1,41 @@
+<div class="container mt-5 mb-5">
+  <% if @restaurants.blank? %>
+      <div> 
+        <div class="card alert alert-warning text-center">
+          <h4 class="tex-center">
+            Aun no tienes mesas registradas
+          </h4>
+        </div>
+      </div>
+  <% else %>
+    <h1 class="text-center"> Seleccione el Restaurant que desea retirar su dinero: </h1>
+    <div class="mt-5 mb-5 text-center">
+      <br>
+        <% if !@restaurants.blank? %> 
+            <div class="row mb-5 category-page">
+              <% @restaurants.each do |r| %>
+                  <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-5">
+                    <div class="card text-center">
+                        <% if r.image.present? %>
+                        <a href="/pagos/detail/<%= r.id %>">
+                          <%= image_tag(r.image, class: "card-img-top") %>
+                        </a>
+                        <% else %>
+                          <%= link_to "Agregar Imagen", restaurant_path(r), class: "btn acomer-primary btn-sm btn-block" %>
+                        <% end %>
+                      <div class="card-body">
+                        <h5 class="card-title">
+                        <a href="/pagos/detail/<%= r.id %>">
+                            <%= r.name %>
+                        </a>
+                        </h5>
+                        <%= link_to 'Ver Pagos del Restaurant', {controller: "pagos", action: "detail", id: r.id },  class: "btn acomer-primary" %>
+                      </div>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          <% end %>  
+      </div>
+  <% end %>
+</div>

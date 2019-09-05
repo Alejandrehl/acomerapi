@@ -1,0 +1,218 @@
+<%= form_with(local: true, url: singular_branch_create_path, method: :post, class: "container mt-5 mb-5") do |form| %>
+  <h3 class = "text-center"> Ingresa tu sucursal </h3>
+  <div class="form-group">
+    <%= form.label :name, "Nombre" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Ej: Jalisco Plaza Norte", required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :telephone, "Télefono" %>
+    <%= form.text_field :telephone, class: "form-control", placeholder: "Ej: 229384329",required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :street, "Dirección" %>
+    <input id="pac-input" class="controls" type="text" name="branch[street_branch]" placeholder="Escribe tu dirección ">
+    <div id="map">
+    </div>
+    <input type="text" size="20" maxlength="50" name="branch[lat]" id="displayLat" required= true hidden = true>
+    <input type="text" size="20" maxlength="50" name="branch[leng]" id="displayLong" required= true hidden = true>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :email_manager,  "Correo electrónico de administrador" %>
+    <%=  form.text_field :email_manager, class: "form-control", placeholder: "Ej: administracion@jalisco.com",required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :telephone_manager,  "Teléfono de administrador" %>
+    <%=  form.text_field :telephone_manager, class: "form-control", placeholder: "Ej: 982435564",required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :description,  "Información" %>
+    <%=  form.text_area :description, class: "form-control", placeholder: "Escriba una breve descripcion de la sucursal",required: true  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :branch_category, "Selecciona una categoria de sucursal" %>
+    <br>
+    <%=  form.select :branch_category, [['Restobar','Restobar'], ['Bar','Bar'], ['Restaurante','Restaurante'], ['Karaoke Bar','Karaoke Bar'], ['Pub','Pub'], ['Sushi Bar','Sushi Bar'], ['Comida China','Comida China'], ['Comida Arabe','Comida Arabe'], ['Comida Peruana','Comida Peruana'], ['Pasteleria','Pasteleria'], ['Cafeteria','Cafeteria'] ,['Buffet','Buffet'] ,['Otro','Otro'] ], class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :business_name, "Razón Social" %>
+    <%=  form.text_field :business_name, class: "form-control", placeholder: "Ej: S.A", required: true%>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :giro, "Giro" %>
+    <%=  form.text_field :giro, class: "form-control", placeholder: "Ej: Restaurant", required: true%>
+  </div> 
+
+  <div class="form-group">
+    <%=  form.label :email, "Correo electrónico del Restaurant" %>
+    <%=  form.text_field :email, class: "form-control", placeholder: "Ej: ciudadela_adm@gmail.com"%>
+  </div>
+
+    <div class="form-group">
+      <h3 style="width:100%; float:left;"><%= form.label :attentiontype, "Selecciona el tipo de atencion de tu sucursal"%></h3>
+      <br>
+
+      <div class="form-group">
+        <%= form.check_box :step %>
+        <%= form.label :step, "Al Paso" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.check_box :by_tables %>
+        <%= form.label :by_tables, "Por Mesas" %>
+      </div>
+
+    </div>
+
+  <div class="form-group">
+    <%= form.label :logo, "Ingrese un Logo" %><br />
+    <%= form.file_field :logo_url, class: "form-control", required: true, onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes }%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :plates, "Ingrese imagenes de la sucursal" %><br />
+    <%= form.file_field :img_url, multiple: true, class: "form-control", required: true, onchange: "validateFiles(this);", data: { max_file_size: 1.megabytes }%>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :instagram, "Perfil de Instagram" %>
+    <%=  form.text_field :instagram, class: "form-control", placeholder: "Ej: @LaCiudadela_Oficial"%>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :facebook, "Fanpage de Facebook"%>
+    <%=  form.text_field :facebook, class: "form-control", placeholder: "Ej: La Ciudadela Oficial"%>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :twitter, "Cuenta de Twitter" %>
+    <%=  form.text_field :twitter, class: "form-control", placeholder: "Ej: @Laciudadela_off"%>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :pinterest, "Cuenta de Pinterest" %>
+    <%=  form.text_field :pinterest, class: "form-control"%>
+  </div>
+
+  <div class="form-group">
+    <%=  form.label :tripadvisor, "Cuenta de TripAdvisor" %>
+    <%=  form.text_field :tripadvisor, class: "form-control"%>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :user_id, type: "hidden", value: current_user[:id]%>
+  </div> 
+
+  <div class="actions">
+    <%= form.submit "Crear", class: "btn acomer-primary" %>
+  </div>
+
+<div class="col-lg-12 formulario new-branch">
+  <h2>Horario <small>(Opcional)</small></h2>
+      
+      
+    <div class="col-lg-7 horario-tabla">  
+      <h4 class="col-lg-6" style="float:left;">Hora de apertura</h4>
+      <h4 class="col-lg-6" style="float:left;">Hora de cierre</h4>
+      <label>Lunes</label>
+      <div class="form-group">
+        <%= form.time_field :hour_op_mon, class: "form-control", placeholder: "Ej: 09:00"%>
+        <%= form.text_field :day_lun , type: "hidden", value: "Lunes"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.time_field :hour_cl_mon, class: "form-control", placeholder: "Ej: 22:30"%>
+        <%= form.text_field :day_lun , type: "hidden", value: "Lunes"%>
+      </div>
+    </div>
+
+    <div class="col-lg-7 horario-tabla">
+    <label>Martes</label>
+     <div class="form-group">
+      <%= form.time_field :hour_op_tue, class: "form-control", placeholder: "Ej: 09:00"%>
+      <%= form.text_field :day_mar , type: "hidden", value: "Martes"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.time_field :hour_cl_tue, class: "form-control", placeholder: "Ej: 22:30"%>
+      <%= form.text_field :day_mar , type: "hidden", value: "Martes"%>
+    </div>
+
+    </div>
+    <div class="col-lg-7 horario-tabla">
+    <label>Miércoles</label>
+      <div class="form-group">
+        <%= form.time_field :hour_op_wed, class: "form-control", placeholder: "Ej: 09:00"%>
+        <%= form.text_field :day_mie , type: "hidden", value: "Miercoles"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.time_field :hour_cl_wed, class: "form-control", placeholder: "Ej: 22:30"%>
+        <%= form.text_field :day_mie , type: "hidden", value: "Miercoles"%>
+      </div>
+
+    </div>
+
+    <div class="col-lg-7 horario-tabla">
+      <label>Jueves</label>
+      <div class="form-group">
+        <%= form.time_field :hour_op_thu, class: "form-control", placeholder: "Ej: 09:00"%>
+        <%= form.text_field :day_jue , type: "hidden", value: "Jueves"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.time_field :hour_cl_thu, class: "form-control", placeholder: "Ej: 22:30"%>
+        <%= form.text_field :day_jue , type: "hidden", value: "Jueves"%>
+      </div>
+
+    </div>
+
+    <div class="col-lg-7 horario-tabla">
+      <label>Viernes</label>
+      <div class="form-group">
+        <%= form.time_field :hour_op_fri, class: "form-control", placeholder: "Ej: 09:00"%>
+        <%= form.text_field :day_vie , type: "hidden", value: "Viernes"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.time_field :hour_cl_fri, class: "form-control", placeholder: "Ej: 22:30"%>
+        <%= form.text_field :day_vie , type: "hidden", value: "Viernes"%>
+      </div>
+
+    </div>
+    <div class="col-lg-7 horario-tabla">
+      <label>Sábado</label>
+      <div class="form-group">
+        <%= form.time_field :hour_op_sat, class: "form-control", placeholder: "Ej: 09:00"%>
+        <%= form.text_field :day_sab , type: "hidden", value: "Sabado"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.time_field :hour_cl_sat, class: "form-control", placeholder: "Ej: 22:30"%>
+        <%= form.text_field :day_sab , type: "hidden", value: "Sabado"%>
+      </div>
+
+    </div>
+
+    <div class="col-lg-7 horario-tabla">
+      <label>Domingo</label>
+      <div class="form-group">
+        <%= form.time_field :hour_op_sun, class: "form-control", placeholder: "Ej: 09:00"%>
+        <%= form.text_field :day_dom , type: "hidden", value: "Domingo"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.time_field :hour_cl_sun, class: "form-control", placeholder: "Ej: 22:30"%>
+        <%= form.text_field :day_dom , type: "hidden", value: "Domingo"%>
+      </div>
+
+    </div>
+<% end %>
+

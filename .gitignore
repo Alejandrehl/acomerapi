@@ -1,0 +1,8 @@
+.DS_Store
+tmp
+tmp/cache
+log
+storage/
+.vscode
+app/views/orders/index\.html\.1\.erb
+log/

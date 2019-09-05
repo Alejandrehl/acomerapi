@@ -1,0 +1,48 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="formulario col-lg-6">
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title , placeholder: "Ej: El plato de porotos con una cerveza, es realmente economico y bueno!" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, placeholder: "Escriba aqui el contenido de su post" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_field :author, placeholder: "Ej: Markos Zaror" %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :likes %>
+    <%= form.number_field :likes %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :user_id , type: "hidden", value: current_user[:id]%>
+  </div>
+
+  <div class="field">
+    <%= form.label :post_category_id, 'Tipo de Post' %>
+    <%= form.select(:post_category_id, PostCategory.all.collect {|r| [ r.name, r.id ] }) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+</div>
+<% end %>

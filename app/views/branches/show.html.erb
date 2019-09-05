@@ -1,0 +1,146 @@
+<p id="notice"><%= notice %></p>
+<div class="tarjeta-datos">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+      <p>
+        <strong>Nombre:</strong>
+        <%= @branch.name %>
+      </p>
+
+      <p>
+        <strong>Teléfono:</strong>
+        <%= @branch.telephone %>
+      </p>
+
+      <p>
+        <strong>Dirección:</strong>
+        <%= @branch.street %>
+      </p>
+
+      <p>
+        <strong>Email de administrador:</strong>
+        <%= @branch.email_manager %>
+      </p>
+
+      <p>
+        <strong>Teléfono de administrador:</strong>
+        <%= @branch.telephone_manager %>
+      </p>
+
+      <p>
+        <strong>Información:</strong>
+        <%= @branch.information %>
+      </p>
+
+      <p>
+        <strong>Hora de atención:</strong><br>
+        <% @atencion = Schedule.where(branch_id: @branch.id)%>
+        <% @atencion.each do |horario|%>
+          <%= horario.day %>
+          <%= horario.opening.strftime('%H:%M')%> -
+          <%= horario.closing.strftime('%H:%M')%>
+          <br>
+        <% end %>
+      </p>
+
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+      <p>
+        <strong>Instagram:</strong>
+        <% if @branch.instagram_id == '' %>
+          Perfil de Instagram no agregado.
+        <% else %>
+          <%= @branch.instagram_id %>
+        <% end %>
+      </p>
+      <p>
+        <strong>Categoría de restaurant:</strong>
+        <%= @branch.branch_category %>
+      </p>
+
+      <p>
+        <strong>Restaurant:</strong>
+        <%= @branch.restaurant.name %>
+      </p>
+      <p>
+        <strong>Tipo de atención:</strong>
+        <% if @branch.by_tables.to_i == 1 %>
+          Atención a la mesa
+        <% end %>
+        <% if @branch.step.to_i == 1 %>
+          Atención al paso 
+        <% end %>
+
+      </p>
+      <p class="fotos-sucursal">
+        <strong>Fotos Sucursal:</strong>
+          <% if @branch.image_paths.size != 0 %>
+            <% @branch.image_paths.each do |f| %>
+              <%= image_tag(f.url) %>
+            <% end %> 
+        <% end %>
+      </p>
+      
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 datos-4">
+      <p  class="qr-sucursal">
+        <strong>QR Code:</strong>
+        <br>
+        <%= image_tag @qr %>
+      </p>
+      <%= link_to '<i class="batch-icon batch-icon-compose-alt-3"></i>'.html_safe, edit_branch_path(@branch), class: "acomer-btn-secundary  "%>
+      <% if current_user.branch_number == 1 %>
+      <%= link_to 'Volver al Menu', admin_index_path, class: "acomer-btn-primary"%>
+      <% else %>
+      <%= link_to '<i class="batch-icon batch-icon-bin-alt-2"></i>'.html_safe, @branch, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "acomer-btn-tertiary" %>
+      <%= link_to 'Volver a Sucursales', admin_branches_path, class: "acomer-btn-primary"%>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <h2 class="text-center mt-5"> Historial de Ordenes de la Sucursal </h2>
+  <div class="container table-responsive pb-5">
+  <div class="text-center mb-5">
+  </div>
+    <% if @orders_per_branches.empty? %>
+    <div>
+      <div class="card card-warning text-center">
+        <h4 class="text-center">
+          Aun no tienes ordenes completadas.
+        </h4>
+      </div>
+    </div>
+    <% else %>
+    
+    <table id="datatable-1" class="table table-datatable table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Numero de Pedido</th>
+          <th>Total</th>
+          <th>Mesa</th>
+          <th>Hora del pedido</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @orders_per_branches.each do |po| %>
+          <tr>
+            <td>
+              <%= po.id %>
+            </td>
+            <td>
+              <%= po.total %>
+            </td>
+            <td>
+              <%= po.tables_id %>
+            </td>
+            <td>
+              <%= readable_fulltime(po.created_at) %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+    <br> <br> <br>
+    <% end %>
+  </div>
+</div>
