@@ -62,7 +62,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Utilizada para la autenticacion de usuario
-gem 'devise', '~> 4.6.2'
+gem 'devise', '~> 4.7.1'
 # Utilizada para el tema de roles del User
 gem 'rolify', '~> 5.2'
 gem 'cancancan', '~> 1.15'
