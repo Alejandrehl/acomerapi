@@ -2,7 +2,7 @@
   "name": "acomer",
   "private": true,
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lightbox2": "^2.11.0"
   }
 }
